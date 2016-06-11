@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ffffff"
+    android:paddingRight="5dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/product_detail_image_view"
+        android:layout_marginLeft="10dp"
+
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic"
+        />
+   <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Item Name"
+        android:textColor="#166CED"
+        android:id="@+id/itemname"
+        android:textSize="14dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        android:layout_alignTop="@+id/product_detail_image_view"
+        android:layout_toRightOf="@+id/product_detail_image_view"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/delete_menu_Item_button"
+        android:layout_toStartOf="@+id/delete_menu_Item_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="itemprice"
+
+        android:id="@+id/itemprice"
+        android:textColor="#166CED"
+        android:textSize="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/itemname"
+        android:layout_alignLeft="@+id/itemname"
+        android:layout_alignStart="@+id/itemname" />
+    <TextView
+        android:id="@+id/itemavailability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#166CED"
+        android:layout_marginTop="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/itemprice"
+        android:layout_alignLeft="@+id/itemprice"
+        android:layout_alignStart="@+id/itemprice"
+        android:text="availability" />
+
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:background="#166CED"
+        android:layout_marginTop="15dp"
+        android:id="@+id/delete_menu_Item_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        />
+
+
+    <!--<TextView-->
+
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:text="-"-->
+
+        <!--android:textColor="@color/text_view_grey"-->
+        <!--android:textSize="16sp"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--android:background="#ffffff"-->
+        <!--android:id="@+id/sub_btn"-->
+        <!--android:layout_below="@+id/add_sub_val"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
+    <!--<TextView-->
+
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:text="+"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textColor="@color/text_view_grey"-->
+        <!--android:background="#ffffff"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--android:id="@+id/add_btn"-->
+        <!--android:layout_alignTop="@+id/viewleft"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:textSize="14sp"-->
+        <!--android:text="0"-->
+
+        <!--android:textColor="@color/text_view_grey"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--android:id="@+id/add_sub_val"-->
+        <!--android:background="#ffffff"-->
+        <!--android:layout_below="@+id/add_btn"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignLeft="@+id/add_btn"-->
+        <!--android:layout_alignStart="@+id/add_btn" />-->
+
+
+</RelativeLayout>

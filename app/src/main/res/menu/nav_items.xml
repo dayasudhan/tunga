@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/navigation_order_today_list"
+            android:title="Today Order List"
+            android:icon="@drawable/ic_action_fab" />
+
+        <item android:id="@+id/navigation_order_list"
+              android:title="Order List"
+              android:icon="@drawable/ic_action_fab" />
+
+        <item android:id="@+id/navigation_menu"
+            android:title="Menu"
+            android:icon="@drawable/ic_action_star" />
+
+    <item android:id="@+id/navigation_about_me"
+        android:title="About Me"
+        android:icon="@drawable/ic_action_upload" />
+    <item android:id="@+id/navigation_about_Khaanavali"
+            android:title="About Khaanavali"
+            android:icon="@drawable/ic_action_upload" />
+    <item android:id="@+id/navigation_logout"
+            android:title="Log out"
+            android:icon="@drawable/ic_action_upload" />
+</group>
+</menu>

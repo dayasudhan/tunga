@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingLeft="10dp"
+
+    android:paddingBottom="10dp"
+     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Vendor Name"
+        android:textColor="#166CED"
+        android:id="@+id/customer_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Hotel phone"
+        android:id="@+id/customer_phone"
+        android:layout_below="@+id/customer_name"
+        android:layout_alignLeft="@+id/customer_name"
+        android:textColor="#166CED"
+        android:layout_marginTop="5dp"
+        android:textSize="13dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ID"
+        android:id="@+id/order_id"
+        android:layout_alignTop="@+id/customer_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="40dp"
+        android:textSize="13dp"
+        android:textColor="#166CED"
+        android:layout_alignLeft="@+id/datetime_list"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Time"
+        android:id="@+id/datetime_list"
+        android:layout_below="@+id/order_id"
+        android:layout_alignParentRight="true"
+
+        android:layout_alignParentEnd="true"
+        android:textColor="#166CED"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textSize="11dp"/>
+    <!--<View-->
+        <!--android:layout_width="2dp"-->
+        <!--android:layout_height="10dp"-->
+        <!--android:background="#D8D8D8"-->
+        <!--android:id="@+id/viewleft1"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:visibility="invisible"-->
+        <!--android:layout_marginTop="2dp"-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:layout_alignBottom="@+id/extra_feature_2"-->
+        <!--android:layout_toRightOf="@+id/extra_feature_2"-->
+        <!--android:layout_toEndOf="@+id/extra_feature_2"-->
+        <!--android:layout_alignTop="@+id/extra_feature_2" />-->
+     <!--< TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:id="@+id/bill_value_list"-->
+        <!--android:layout_below="@+id/datetime_list"-->
+        <!--android:layout_alignLeft="@+id/datetime_list"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:textSize="12dp"-->
+
+        <!--android:textColor="#166CED"-->
+        <!--android:padding="1dp" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Small Text"-->
+        <!--android:id="@+id/extra_feature_2"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_alignTop="@+id/extra_feature_1"-->
+        <!--android:layout_toRightOf="@+id/extra_feature_1"-->
+        <!--android:textSize="12dp"-->
+
+        <!--android:padding="1dp"-->
+        <!--android:textColor="#D8D8D8"/>-->
+
+
+
+
+
+</RelativeLayout>

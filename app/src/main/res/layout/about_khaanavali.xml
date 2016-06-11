@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Khaanavali"
+        android:id="@+id/textaboutkhaanavali"
+        android:layout_marginTop="40dip"
+        android:textColor="#166CED"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Name Label -->
+    <TextView
+        android:id="@+id/lblknvlName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_marginTop="40dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="#166CED"
+        />
+
+    <!-- Email Label -->
+    <TextView
+        android:id="@+id/lblknvlEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#166CED"
+        android:text="   dayasudhankg@gmail.com"
+        android:layout_marginBottom="40dip"/>
+
+    <TextView
+        android:id="@+id/lblknvlPhone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#166CED"
+        android:text="   +919566229075"
+        android:layout_marginBottom="40dip"/>
+
+    <TextView
+        android:id="@+id/lblknvlwebsite"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#166CED"
+        android:text="   http://www.khaanavali.com"
+        android:layout_marginBottom="40dip"/>
+</LinearLayout>

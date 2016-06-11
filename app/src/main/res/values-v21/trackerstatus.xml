@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="status_array">
+        <item>Ordered</item>
+        <item>Accepted</item>
+        <item>Delivered</item>
+        <item>Cancelled</item>
+        <item>Rejected</item>
+    </string-array>
+</resources>
