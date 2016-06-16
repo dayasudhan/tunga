@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 /*
  * Copyright (C) 2015, Francesco Azzola
@@ -33,9 +33,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import materialapp.survivingwithandroid.com.materialapp.Utils.SessionManager;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
 

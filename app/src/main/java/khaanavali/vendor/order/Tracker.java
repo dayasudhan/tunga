@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp.order;
+package khaanavali.vendor.order;
 
 /**
  * Created by dganeshappa on 11/10/2015.

@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,28 +12,12 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-import materialapp.survivingwithandroid.com.materialapp.Utils.SessionManager;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.SessionManager;
 
 /**
  * Created by dganeshappa on 6/4/2016.
  */
-
-
-
-
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.text.Html;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.TextView;
-
-        import java.util.HashMap;
-
-        import materialapp.survivingwithandroid.com.materialapp.Utils.SessionManager;
 
 /**
  * Created by gagan on 11/6/2015.

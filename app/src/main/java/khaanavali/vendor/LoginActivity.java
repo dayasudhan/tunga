@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,8 +23,9 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
-import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
-import materialapp.survivingwithandroid.com.materialapp.Utils.SessionManager;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.Constants;
+import khaanavali.vendor.Utils.SessionManager;
 
 
 import java.io.IOException;

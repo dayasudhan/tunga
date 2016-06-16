@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="materialapp.survivingwithandroid.com.materialapp" >
+    package="khaanavali.vendor" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -17,14 +17,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme" >
-        <activity android:name=".MainActivity" >
+        <activity android:name="khaanavali.vendor.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 /               <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="khaanavali.vendor.LoginActivity"
             android:label="User Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".orderDetail"
+            android:name="khaanavali.vendor.orderDetail"
             android:label="Order Details" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

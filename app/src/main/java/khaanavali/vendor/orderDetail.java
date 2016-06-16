@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,10 +33,11 @@ import cz.msebera.android.httpclient.client.methods.HttpPut;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
-import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
-import materialapp.survivingwithandroid.com.materialapp.order.HotelMenuItem;
-import materialapp.survivingwithandroid.com.materialapp.order.Order;
-import materialapp.survivingwithandroid.com.materialapp.order.Tracker;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.Constants;
+import khaanavali.vendor.order.HotelMenuItem;
+import khaanavali.vendor.order.Order;
+import khaanavali.vendor.order.Tracker;
 
 import org.json.JSONException;
 import org.json.JSONObject;

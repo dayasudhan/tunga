@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0"
 
     defaultConfig {
-        applicationId "materialapp.survivingwithandroid.com.materialapp"
+        applicationId "khaanavali.vendor"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

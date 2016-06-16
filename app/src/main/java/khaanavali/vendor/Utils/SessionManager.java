@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp.Utils;
+package khaanavali.vendor.Utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.content.SharedPreferences.Editor;
 
 import java.util.HashMap;
 
-import materialapp.survivingwithandroid.com.materialapp.LoginActivity;
+import khaanavali.vendor.LoginActivity;
 
 public class SessionManager {
 	// Shared Preferences

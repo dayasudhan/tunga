@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -33,9 +32,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
-import materialapp.survivingwithandroid.com.materialapp.order.*;
-import materialapp.survivingwithandroid.com.materialapp.order.HotelMenuItem;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.Constants;
+import khaanavali.vendor.order.Address;
+import khaanavali.vendor.order.Customer;
+import khaanavali.vendor.order.HotelMenuItem;
+import khaanavali.vendor.order.Order;
+import khaanavali.vendor.order.OrderAdapter;
+import khaanavali.vendor.order.Tracker;
 
 /**
  * Created by gagan on 11/6/2015.

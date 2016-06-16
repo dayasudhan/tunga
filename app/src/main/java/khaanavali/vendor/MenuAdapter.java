@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp;
+package khaanavali.vendor;
 
 /**
  * Created by dganeshappa on 11/10/2015.
@@ -25,7 +25,8 @@ import cz.msebera.android.httpclient.client.methods.HttpDelete;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
-import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
+import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;

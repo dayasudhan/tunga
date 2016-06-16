@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp.order;
+package khaanavali.vendor.order;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import materialapp.survivingwithandroid.com.materialapp.R;
+import khaanavali.vendor.R;
 
 /**
  * Created by dganeshappa on 11/11/2015.

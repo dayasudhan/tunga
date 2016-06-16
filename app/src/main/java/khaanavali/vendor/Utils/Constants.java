@@ -1,4 +1,4 @@
-package materialapp.survivingwithandroid.com.materialapp.Utils;
+package khaanavali.vendor.Utils;
 
 /**
  * Created by dganeshappa on 6/8/2016.
