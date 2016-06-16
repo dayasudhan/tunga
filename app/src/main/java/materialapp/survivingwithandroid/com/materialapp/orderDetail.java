@@ -33,6 +33,7 @@ import cz.msebera.android.httpclient.client.methods.HttpPut;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
 import materialapp.survivingwithandroid.com.materialapp.order.HotelMenuItem;
 import materialapp.survivingwithandroid.com.materialapp.order.Order;
 import materialapp.survivingwithandroid.com.materialapp.order.Tracker;
@@ -245,7 +246,7 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
     public void updateStatusTracker(String status,String reason)
     {
       //  String order_url = "http://10.239.54.58:3000/v1/vendor/order/status/";
-        String order_url = "http://oota.herokuapp.com/v1/vendor/order/status/";
+        String order_url = Constants.GET_STATUS_URL;
         order_url= order_url.concat(order.get_id());
         new AddJSONAsyncTask().execute(order_url,status,reason);
     }

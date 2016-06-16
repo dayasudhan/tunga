@@ -23,6 +23,7 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
 import materialapp.survivingwithandroid.com.materialapp.Utils.SessionManager;
 
 
@@ -73,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     //      new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/vendor/order/summary/x@gmail.com");
-                       new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", un.getText().toString(),pw.getText().toString());
+                       new JSONAsyncTask().execute(Constants.LOGIN_URL, un.getText().toString(),pw.getText().toString());
                   //  new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "test2@gmail.com","test2");
                   //  new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "abcdef@gmail.com","qwerty");
 

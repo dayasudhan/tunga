@@ -26,6 +26,8 @@ import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,7 +89,7 @@ public class MenuFragment extends Fragment {
     }
     public void AddMenuItem(String ItemName,String ItemPrice)
     {
-        String order_url = "http://oota.herokuapp.com/v1/vendor/menu/";
+        String order_url = Constants.GET_MENU;
         order_url= order_url.concat(vendor_email);
         new AddJSONAsyncTask().execute(order_url,ItemName,ItemPrice);
     }
@@ -177,7 +179,7 @@ public class MenuFragment extends Fragment {
 //        Toast.makeText(getActivity().getApplicationContext(), child.getText(), Toast.LENGTH_LONG).show();
 //    }
     public void bindView() {
-        String order_url = "http://oota.herokuapp.com/v1/vendor/menu/";
+        String order_url = Constants.GET_MENU;
         order_url= order_url.concat(vendor_email);
         new JSONAsyncTask().execute(order_url);
     }

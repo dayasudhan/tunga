@@ -25,6 +25,8 @@ import cz.msebera.android.httpclient.client.methods.HttpDelete;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,7 +105,7 @@ static class ViewHolder {
     }
     public void deleteMenuItem(String ItemName)
     {
-        String order_url = "http://oota.herokuapp.com/v1/vendor/menu/item/";
+        String order_url =  Constants.DELETE_MENU;
         order_url= order_url.concat(mVendor_email);
         order_url= order_url.concat("/");
         String item = ItemName.replace(" ", "%20");
@@ -112,7 +114,7 @@ static class ViewHolder {
     }
 
     public void bindView() {
-        String order_url = "http://oota.herokuapp.com/v1/vendor/menu/";
+        String order_url =  Constants.GET_MENU;
         order_url= order_url.concat(mVendor_email);
         new GetJSONAsyncTask().execute(order_url);
     }

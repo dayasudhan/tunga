@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import materialapp.survivingwithandroid.com.materialapp.Utils.Constants;
 import materialapp.survivingwithandroid.com.materialapp.order.*;
 import materialapp.survivingwithandroid.com.materialapp.order.HotelMenuItem;
 
@@ -132,7 +133,7 @@ public class OrderListFragment extends Fragment {
     }
     public void bindView() {
         orderList.clear();
-        String order_url = "http://oota.herokuapp.com/v1/vendor/order/";
+        String order_url = Constants.ORDER_URL;
         if(((MainActivity) getActivity()).isTodayMenuselected()) {
             order_url = order_url.concat("today/");
         }
