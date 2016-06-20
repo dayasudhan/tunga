@@ -21,6 +21,7 @@ package khaanavali.vendor;
  */
 
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -59,14 +60,16 @@ public class MainActivity extends AppCompatActivity {
         //Initializing firebase
 
         session = new SessionManager(getApplicationContext());
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-        notificationManager.cancel(123);
-        if(session.checkLogin())
+        // put your code here...
+        if(session.checkLogin() && !checkNotificationListenerServiceRunning())
         {
             startService(new Intent(this, NotificationListener.class));
         }
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // int notificationId = getIntent().getExtras().getInt("notificationID");
+        notificationManager.cancelAll();
+
+
         setContentView(R.layout.activity_main_nav);
         layout = (RelativeLayout) findViewById(R.id.layout);
 
@@ -74,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
         setToolBar();
     }
 
+    public boolean checkNotificationListenerServiceRunning(){
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if ("khaanavali.vendor.NotificationListener"
+                    .equals(service.service.getClassName()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

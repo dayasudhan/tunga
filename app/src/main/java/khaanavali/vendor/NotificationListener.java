@@ -80,10 +80,11 @@ public class NotificationListener extends Service {
 
     private void showNotification(String msg){
         //Creating a notification
+        int notificationId = 123;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-       // i.putExtra("notificationID", notificationID);
+        intent.putExtra("notificationID", notificationId);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
@@ -96,6 +97,6 @@ public class NotificationListener extends Service {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 //        builder.build().flags |= Notification.FLAG_AUTO_CANCEL;
 
-        notificationManager.notify(123, builder.build());
+        notificationManager.notify(notificationId, builder.build());
     }
 }
