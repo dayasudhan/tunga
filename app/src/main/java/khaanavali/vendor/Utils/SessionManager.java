@@ -23,7 +23,7 @@ public class SessionManager {
 	int PRIVATE_MODE = 0;
 	
 	// Sharedpref file name
-	private static final String PREF_NAME = "Khaanavali";
+	public static final String PREF_NAME = "Khaanavali";
 	
 	// All Shared Preferences Keys
 	private static final String IS_LOGIN = "IsLoggedIn";
@@ -33,7 +33,9 @@ public class SessionManager {
 	
 	// Email address (make variable public to access from outside)
 	public static final String KEY_EMAIL = "email";
-	
+
+	//To store the firebase id in shared preferences
+	public static final String UNIQUE_ID = "uniqueid";
 	// Constructor
 	public SessionManager(Context context){
 		this._context = context;
@@ -44,7 +46,7 @@ public class SessionManager {
 	/**
 	 * Create login session
 	 * */
-	public void createLoginSession(String name, String email){
+	public void createLoginSession(String name, String email , String uniqueId){
 		// Storing login value as TRUE
 		editor.putBoolean(IS_LOGIN, true);
 		
@@ -53,8 +55,12 @@ public class SessionManager {
 		
 		// Storing email in pref
 		editor.putString(KEY_EMAIL, email);
+
+		//Storing the unique id
+		editor.putString(Constants.UNIQUE_ID, uniqueId);
 		// commit changes
 		editor.commit();
+
 	}
 
 	/**
@@ -63,7 +69,7 @@ public class SessionManager {
 	 * Else won't do anything
 	 * */
 
-	public void checkLogin(){
+	public boolean checkLogin(){
 		// Check login status
 		if(!this.isLoggedIn()){
 			// user is not logged in redirect him to Login Activity
@@ -78,7 +84,7 @@ public class SessionManager {
 			// Staring Login Activity
 			_context.startActivity(i);
 		}
-		
+		return true;
 	}
 	
 	

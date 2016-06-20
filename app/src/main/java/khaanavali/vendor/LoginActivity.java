@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
@@ -72,13 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 String response = null;
                 try {
-
-
-                    //      new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/vendor/order/summary/x@gmail.com");
-                       new JSONAsyncTask().execute(Constants.LOGIN_URL, un.getText().toString(),pw.getText().toString());
-                  //  new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "test2@gmail.com","test2");
-                  //  new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "abcdef@gmail.com","qwerty");
-
+                       new JSONAsyncTask().execute(Constants.LOGIN_URL, un.getText().toString().trim().toLowerCase(),pw.getText().toString());
                 } catch (Exception e) {
                     un.setText(e.toString());
                 }
@@ -104,16 +100,17 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... urls) {
             try {
-
-                //------------------>>
-//                HttpGet httppost = new HttpGet(urls[0]);
-//                HttpClient httpclient = new DefaultHttpClient();
-//                HttpResponse response = httpclient.execute(httppost);
+                //Creating a firebase object
+                Firebase firebase = new Firebase(Constants.FIREBASE_APP);
+                //Pushing a new element to firebase it will automatically create a unique id
+                Firebase newFirebase = firebase.push();
+                String uniqueId = newFirebase.getKey();
 
                 ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
                 postParameters.add(new BasicNameValuePair("email", urls[1]));
                 postParameters.add(new BasicNameValuePair("password", urls[2]));
                 postParameters.add(new BasicNameValuePair("role", "vendor"));
+                postParameters.add(new BasicNameValuePair("uniqueid", uniqueId));
 
                 HttpPost request = new HttpPost(urls[0]);
                 HttpClient httpclient = new DefaultHttpClient();
@@ -131,12 +128,14 @@ public class LoginActivity extends AppCompatActivity {
                     String data = EntityUtils.toString(entity);
                     if (data.equals("1")) {
 
-                        session.createLoginSession("Knvl", urls[1]);
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        session.createLoginSession("Knvl", urls[1], uniqueId);
+                        startService(new Intent(getBaseContext(), NotificationListener.class));
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        //  Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
-                    } else {
-                        //Toast.makeText(getApplicationContext(), "error in logged in", Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "error in logged in", Toast.LENGTH_LONG).show();
+//                    }
                     }
                     return true;
                 }
@@ -157,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
             //adapter.notifyDataSetChanged();
             if (result == false)
                 Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
+//            else
+//                Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
 
         }
     }

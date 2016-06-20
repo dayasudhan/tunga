@@ -7,8 +7,10 @@ package khaanavali.vendor;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ParseException;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -35,9 +39,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by gagan on 10/31/2015.
- */
 public class MenuAdapter extends ArrayAdapter<HotelMenu> {
 
     public ArrayList<HotelMenu> getCustomerList() {
@@ -73,13 +74,14 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
             v = vi.inflate(Resource, null);
             //holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
          //   holder.itemid = (TextView) v.findViewById(R.id.itemid);
-            holder.itemavailability = (TextView) v.findViewById(R.id.itemavailability);
+           // holder.itemavailability = (TextView) v.findViewById(R.id.itemavailability);
             holder.itemname = (TextView) v.findViewById(R.id.itemname);
             holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
         Button deleteButton = (Button) v.findViewById(R.id.delete_menu_Item_button);
         deleteButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 deleteMenuItem(customerList.get(position).getName());
+
             }
         });
 
@@ -91,7 +93,7 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
     // new DownloadImageTask(holder.imageview).execute(actorList.get(position).getImage());
     holder.itemname.setText(customerList.get(position).getName());
     //   holder.itemid.setText(customerList.get(position).getid());
-    holder.itemavailability.setText(customerList.get(position).getAvailability());
+   // holder.itemavailability.setText(customerList.get(position).getAvailability());
     holder.itemprice.setText(customerList.get(position).getPrice());
 
     return v;

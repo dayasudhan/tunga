@@ -125,8 +125,8 @@ public class OrderListFragment extends Fragment {
             case R.id.menu_refresh:
                 bindView();
                 return true;
-            case R.id.menu_help:
-                return true;
+//            case R.id.menu_help:
+//                return true;
             default:
                 return false;
             // Android home

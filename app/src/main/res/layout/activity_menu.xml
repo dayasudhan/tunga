@@ -31,7 +31,7 @@
             android:id="@+id/Menu_Item_Name"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
-            android:textColor="#166CED"
+            android:textColor="@color/primary_text"
             android:layout_marginLeft="3dp"
             android:layout_below="@+id/menu_add_text"/>
 
@@ -54,7 +54,7 @@
             android:id="@+id/Menu_Item_price"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
-            android:textColor="#166CED"
+            android:textColor="@color/primary_text"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/menu_add_text"
             android:layout_toRightOf="@+id/editItemName"

@@ -21,6 +21,8 @@ package khaanavali.vendor;
  */
 
 
+import android.app.NotificationManager;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +36,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import com.firebase.client.Firebase;
+
 import khaanavali.vendor.R;
+import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,8 +56,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Initializing firebase
+
         session = new SessionManager(getApplicationContext());
-        session.checkLogin();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+        notificationManager.cancel(123);
+        if(session.checkLogin())
+        {
+            startService(new Intent(this, NotificationListener.class));
+        }
         setContentView(R.layout.activity_main_nav);
         layout = (RelativeLayout) findViewById(R.id.layout);
 
@@ -139,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_refresh:
                 btnName = "Refresh";
                 break;
-            case R.id.menu_help:
-                btnName = "Help";
-                break;
+//            case R.id.menu_help:
+//                btnName = "Help";
+//                break;
             // Android home
             case android.R.id.home: {
                 dLayout.openDrawer(GravityCompat.START);

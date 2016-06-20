@@ -21,7 +21,7 @@
         android:singleLine="true"
         android:layout_marginTop="40dip"
         android:layout_marginBottom="10dip"
-        android:textColor="#166CED"
+        android:textColor="@color/primary_text"
         tools:context="com.example.gagan.khanavali_main.menu5_layout_aboutme"/>
 
     <!-- Email Label -->
@@ -30,7 +30,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textColor="#166CED"
+        android:textColor="@color/primary_text"
         android:layout_marginBottom="40dip"/>
 
     <!-- Button to show session data -->
