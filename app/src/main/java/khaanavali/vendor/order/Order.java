@@ -107,6 +107,16 @@ public class Order implements Comparable {
     @Override
     public int compareTo(Object another) {
         Order anotherOrder = (Order)another;
-        return anotherOrder.getId().compareTo(this.id);
+        String anotherId = anotherOrder.getId();
+        int indexOfR = anotherId.indexOf('R');
+        String anotherIdStringValue = anotherId.substring(indexOfR + 1);
+        int anotherIdIntValue = Integer.parseInt(anotherIdStringValue);
+
+        String thisId = this.getId();
+        int thisIdindexOfR = thisId.indexOf('R');
+        String thisIdStringValue = thisId.substring(thisIdindexOfR + 1);
+        int thisIdIntValue = Integer.parseInt(thisIdStringValue);
+        //return anotherOrder.getId().compareTo(this.id);
+        return anotherIdIntValue - thisIdIntValue;
     }
 }
