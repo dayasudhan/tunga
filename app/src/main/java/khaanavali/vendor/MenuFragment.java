@@ -83,6 +83,7 @@ public class MenuFragment extends Fragment {
             addButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
+
                     AddMenuItem(eItemName.getText().toString(),eItemPrice.getText().toString());
                 }
             });
@@ -90,9 +91,15 @@ public class MenuFragment extends Fragment {
     }
     public void AddMenuItem(String ItemName,String ItemPrice)
     {
-        String order_url = Constants.GET_MENU;
-        order_url= order_url.concat(vendor_email);
-        new AddJSONAsyncTask().execute(order_url,ItemName,ItemPrice);
+        if(ItemName.isEmpty() || ItemPrice.isEmpty()) {
+            Toast.makeText(getActivity().getApplicationContext(), "Enter Proper MenuItem", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else {
+            String order_url = Constants.GET_MENU;
+            order_url = order_url.concat(vendor_email);
+            new AddJSONAsyncTask().execute(order_url, ItemName, ItemPrice);
+        }
     }
     public  class AddJSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
