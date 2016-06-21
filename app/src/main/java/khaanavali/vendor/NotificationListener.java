@@ -23,9 +23,7 @@ import java.util.Calendar;
 import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
-/**
- * Created by Belal on 3/18/2016.
- */
+
 //Class extending service as it is a service that will run in background
 public class NotificationListener extends Service {
 
@@ -68,7 +66,17 @@ public class NotificationListener extends Service {
                     //calling the method to show notification
                     //String msg is containing the msg that has to be shown with the notification
                     String message  = "New Order Received : " + msg;
-                    showNotification(Calendar.getInstance().getTimeInMillis(),message);
+                    showNotification(Calendar.getInstance().getTimeInMillis(),message,1);
+                }
+                else if(snapshot.child("update").exists())
+                {
+                    String msg = snapshot.child("update").getValue().toString();
+                    showNotification(Calendar.getInstance().getTimeInMillis(),msg,2);
+                }
+                else if(snapshot.child("info").exists())
+                {
+                    String msg = snapshot.child("info").getValue().toString();
+                    showNotification(Calendar.getInstance().getTimeInMillis(),msg,3);
                 }
             }
 
@@ -82,12 +90,16 @@ public class NotificationListener extends Service {
     }
 
 
-    private void showNotification(long when, String msg){
+    private void showNotification(long when, String msg,int intent_type){
         //Creating a notification
         final String GROUP_KEY_ORDER_IDS = "group_order_ids";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent;
+        if(intent_type == 1 || intent_type ==3)
+            intent = new Intent(getApplicationContext(),MainActivity.class);
+        else
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=khaanavali.vendor"));
        // intent.putExtra("notificationID", notificationId);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent);
@@ -100,23 +112,11 @@ public class NotificationListener extends Service {
 //        builder.setGroupSummary(true);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify((int) when, builder.build());
+    }
 
-//        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),
-//                R.mipmap.ic_launcher);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
-// Create an InboxStyle notification
-//        Notification summaryNotification = new NotificationCompat.Builder(this)
-//                .setContentTitle("2 new messages")
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setLargeIcon(largeIcon)
-//                .setStyle(new NotificationCompat.InboxStyle()
-//                        .addLine("Alex Faaborg   Check this out")
-//                        .addLine("Jeff Chang   Launch Party")
-//                        .setBigContentTitle("2 new messages")
-//                        .setSummaryText("johndoe@gmail.com"))
-//                .setGroup(GROUP_KEY_ORDER_IDS)
-//                .setGroupSummary(true)
-//                .build();
-//        notificationManager.notify((int) when, summaryNotification);
     }
 }

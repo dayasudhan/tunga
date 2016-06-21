@@ -8,6 +8,8 @@ import android.content.SharedPreferences.Editor;
 import java.util.HashMap;
 
 import khaanavali.vendor.LoginActivity;
+import khaanavali.vendor.MainActivity;
+import khaanavali.vendor.NotificationListener;
 
 public class SessionManager {
 	// Shared Preferences
@@ -111,7 +113,7 @@ public class SessionManager {
 		// Clearing all data from Shared Preferences
 		editor.clear();
 		editor.commit();
-		
+		//final boolean b = _context.stopService(new Intent(_context, NotificationListener.class));
 		// After logout redirect user to Loing Activity
 		Intent i = new Intent(_context, LoginActivity.class);
 		// Closing all the Activities

@@ -1,5 +1,6 @@
 package khaanavali.vendor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,8 @@ import android.widget.Button;
 import khaanavali.vendor.R;
 import khaanavali.vendor.Utils.SessionManager;
 
-/**
- * Created by gagan on 11/6/2015.
- */
+
+
 public class LogoutFragment extends Fragment {
 
     View rootview;
@@ -46,6 +46,7 @@ public class LogoutFragment extends Fragment {
                 // Clear the session data
                 // This will clear all session data and
                 // redirect user to LoginActivity
+
                 session.logoutUser();
             }
         });

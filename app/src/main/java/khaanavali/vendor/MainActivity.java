@@ -37,10 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-import com.firebase.client.Firebase;
 
-import khaanavali.vendor.R;
-import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if(session.checkLogin() && !checkNotificationListenerServiceRunning())
         {
             startService(new Intent(this, NotificationListener.class));
+           // stopService(new Intent(this,NotificationListener.class));
         }
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // int notificationId = getIntent().getExtras().getInt("notificationID");
@@ -103,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(tb);
 
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("KHAANAVALI");
+        if(ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle("KHAANAVALI");
+        }
     }
 
     private void setNavigationDrawer() {
@@ -165,13 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch(itemId) {
 
-            case R.id.menu_refresh:
-                btnName = "Refresh";
-                break;
-//            case R.id.menu_help:
-//                btnName = "Help";
-//                break;
-            // Android home
             case android.R.id.home: {
                 dLayout.openDrawer(GravityCompat.START);
                 return true;
