@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.IBinder;
@@ -16,6 +17,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
+import java.util.Calendar;
 
 import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
@@ -64,7 +67,8 @@ public class NotificationListener extends Service {
                     //If the value is anything other than none that means a notification has arrived
                     //calling the method to show notification
                     //String msg is containing the msg that has to be shown with the notification
-                    showNotification(msg);
+                    String message  = "New Order Received : " + msg;
+                    showNotification(Calendar.getInstance().getTimeInMillis(),message);
                 }
             }
 
@@ -78,25 +82,41 @@ public class NotificationListener extends Service {
     }
 
 
-    private void showNotification(String msg){
+    private void showNotification(long when, String msg){
         //Creating a notification
-        int notificationId = 123;
+        final String GROUP_KEY_ORDER_IDS = "group_order_ids";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        intent.putExtra("notificationID", notificationId);
+       // intent.putExtra("notificationID", notificationId);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentTitle("Khaanavali");
         builder.setContentText(msg);
         builder.setAutoCancel(true);
-//        pi = PendingIntent.getBroadcast(context, 0, dailyIntent,
-//                PendingIntent.FLAG_CANCEL_CURRENT);
-//        builder.setContentIntent(PendingIntent.getActivity(this, 0, new Intent(), 0));
+        builder.setWhen(when);
+//        builder.setGroup(GROUP_KEY_ORDER_IDS);
+//        builder.setGroupSummary(true);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        builder.build().flags |= Notification.FLAG_AUTO_CANCEL;
+        notificationManager.notify((int) when, builder.build());
 
-        notificationManager.notify(notificationId, builder.build());
+//        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),
+//                R.mipmap.ic_launcher);
+
+// Create an InboxStyle notification
+//        Notification summaryNotification = new NotificationCompat.Builder(this)
+//                .setContentTitle("2 new messages")
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setLargeIcon(largeIcon)
+//                .setStyle(new NotificationCompat.InboxStyle()
+//                        .addLine("Alex Faaborg   Check this out")
+//                        .addLine("Jeff Chang   Launch Party")
+//                        .setBigContentTitle("2 new messages")
+//                        .setSummaryText("johndoe@gmail.com"))
+//                .setGroup(GROUP_KEY_ORDER_IDS)
+//                .setGroupSummary(true)
+//                .build();
+//        notificationManager.notify((int) when, summaryNotification);
     }
 }
