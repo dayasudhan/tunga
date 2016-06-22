@@ -70,8 +70,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(getDate);
-        cal.add(Calendar.HOUR, 5);
-        cal.add(Calendar.MINUTE, 30);
+//        cal.add(Calendar.HOUR, 5);
+//        cal.add(Calendar.MINUTE, 30);
         String newTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.SHORT).format(cal.getTime());
         String newTime2  = newTime.replace("2016","");
         holder.itemTime.setText(newTime2);
@@ -90,29 +90,4 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         public TextView itemtotalCost;
     }
 
-   /* private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-
-    }*/
 }

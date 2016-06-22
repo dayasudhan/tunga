@@ -1,12 +1,17 @@
 package khaanavali.vendor;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
@@ -16,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -38,7 +44,9 @@ import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.order.HotelMenuItem;
 import khaanavali.vendor.order.Order;
 import khaanavali.vendor.order.Tracker;
+import khaanavali.vendor.Utils.StatusTracker;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,8 +54,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 //import order.orderDetailsAdapter;
@@ -57,18 +67,24 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
     String vendor_email;
     Order order;
     Button callButton;
- //   orderDetailsAdapter adapter;
+    int current_status = 0 ;
+    boolean isStartActivity = false;
+    Spinner spinner;
+    ArrayAdapter<String> spinnerArrayAdapter;
+    private boolean userIsInteracting;
+    //   orderDetailsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customer_order_detail);
+
         Intent i = getIntent();
         // Order order = (Order)i.getSerializableExtra("order");
         pref = getSharedPreferences("Khaanavali", 0);
         vendor_email = pref.getString("email", "name");
         Gson gson = new Gson();
-      //  Order order;
+        //  Order order;
         order = gson.fromJson(i.getStringExtra("order"), Order.class);
 //        JSONObject object = null;
 //        try {
@@ -76,72 +92,51 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-      //  adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_customer_order_detail, order);
+        //  adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_customer_order_detail, order);
         TextView txtViewName = (TextView) findViewById(R.id.customer_name_value);
         TextView txtViewPhone = (TextView) findViewById(R.id.customer_contact_value);
         TextView txtViewAddress = (TextView) findViewById(R.id.address_value);
-        TextView txtViewStatus = (TextView) findViewById(R.id.current_status_value);
+
         TextView txtViewMenu = (TextView) findViewById(R.id.items_value);
-        TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
+
         TextView txtViewid = (TextView) findViewById(R.id.order_id_value);
         TextView txtViewiBillValue = (TextView) findViewById(R.id.bill_value_value);
-        callButton = (Button)findViewById(R.id.buttonCall);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        callButton = (Button) findViewById(R.id.buttonCall);
+
         txtViewName.setText(order.getCustomer().getName());
         txtViewPhone.setText(order.getCustomer().getPhone());
         txtViewid.setText(order.getId());
-        txtViewStatus.setText(order.getCurrent_status());
-        txtViewiBillValue.setText(String.valueOf(order.getTotalCost()));
 
         String CustomerAddress = new String();
-        if(order.getCustomer().getAddress().getAddressLine1() != null && !order.getCustomer().getAddress().getAddressLine1().isEmpty())
-            CustomerAddress =  CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine1()).concat("\n");
-        if(order.getCustomer().getAddress().getAddressLine2() != null && !order.getCustomer().getAddress().getAddressLine2().isEmpty())
-            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine2()).concat("\n");
-        if(order.getCustomer().getAddress().getAreaName() != null && !order.getCustomer().getAddress().getAreaName().isEmpty())
-            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getAreaName()).concat("\n");
-        if(order.getCustomer().getAddress().getLandMark() != null && !order.getCustomer().getAddress().getLandMark().isEmpty())
-            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getLandMark().concat("\n"));
-        if(order.getCustomer().getAddress().getStreet() != null && !order.getCustomer().getAddress().getStreet().isEmpty())
-            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getStreet()).concat("\n");
-        if(order.getCustomer().getAddress().getCity() != null && !order.getCustomer().getAddress().getCity().isEmpty())
-            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getCity());
+        if (order.getCustomer().getAddress().getAddressLine1() != null && !order.getCustomer().getAddress().getAddressLine1().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine1()).concat("\n");
+        if (order.getCustomer().getAddress().getAddressLine2() != null && !order.getCustomer().getAddress().getAddressLine2().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine2()).concat("\n");
+        if (order.getCustomer().getAddress().getAreaName() != null && !order.getCustomer().getAddress().getAreaName().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getAreaName()).concat("\n");
+        if (order.getCustomer().getAddress().getLandMark() != null && !order.getCustomer().getAddress().getLandMark().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getLandMark().concat("\n"));
+        if (order.getCustomer().getAddress().getStreet() != null && !order.getCustomer().getAddress().getStreet().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getStreet()).concat("\n");
+        if (order.getCustomer().getAddress().getCity() != null && !order.getCustomer().getAddress().getCity().isEmpty())
+            CustomerAddress = CustomerAddress.concat(order.getCustomer().getAddress().getCity());
         txtViewAddress.setText(CustomerAddress);
 
         ArrayList<HotelMenuItem> items = order.getHotelMenuItems();
         String MenuItemStr = "";
-        for(int j = 0 ; j < items.size() ; j++)
-        {
+        for (int j = 0; j < items.size(); j++) {
             MenuItemStr += items.get(j).getName() + " (" + items.get(j).getNo_of_order() + ")" + '\n';
         }
         txtViewMenu.setText(MenuItemStr);
+        txtViewiBillValue.setText(String.valueOf(order.getTotalCost()));
 
-        ArrayList<Tracker> trackeritems = order.getTrackerDetail();
-        String trackerItemStr = "";
-        for(int j = 0 ; j < trackeritems.size() ; j++)
-        {
-            SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date getDate = null;
-            try {
-                getDate = existingUTCFormat.parse(trackeritems.get(j).getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(getDate);
-            cal.add(Calendar.HOUR, 5);
-            cal.add(Calendar.MINUTE, 30);
-            String newTime = requiredFormat.format(cal.getTime());
-            trackerItemStr += trackeritems.get(j).getStatus()+ " (" + newTime + ")" + '\n';
-        }
-        txtViewTracker.setText(trackerItemStr);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.status_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);  // Spinner click listener
+        spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
+        spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,android.R.layout.simple_spinner_dropdown_item);
+        initStatusTracker();
+
+
 
         // add button listener
         callButton.setOnClickListener(new OnClickListener() {
@@ -152,12 +147,141 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 String calNumber = new String("tel:").concat(order.getCustomer().getPhone());
                 callIntent.setData(Uri.parse(calNumber));
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // Should we show an explanation?
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(orderDetail.this,
+                            Manifest.permission.CALL_PHONE)) {
+
+                         new AlertDialog.Builder(orderDetail.this)
+                                .setTitle("Permission Required")
+                                .setMessage("This permission was denied earlier by you. This permission is required to call from app .So, in order to use this feature please allow this permission by clicking ok.")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        ActivityCompat.requestPermissions(orderDetail.this,
+                                                new String[]{Manifest.permission.CALL_PHONE},
+                                                1);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+                    } else {
+
+                        ActivityCompat.requestPermissions(orderDetail.this,
+                                new String[]{Manifest.permission.CALL_PHONE},
+                                1);
+
+                    }
+                    return;
+                }
                 startActivity(callIntent);
 
             }
 
         });
         setToolBar();
+    }
+
+    private void initStatusTracker() {
+        //updatecurrent status
+        TextView txtViewStatus = (TextView) findViewById(R.id.current_status_value);
+        txtViewStatus.setText(order.getCurrent_status());
+
+        isStartActivity = true;
+        //update status tracker
+        ArrayList<Tracker> trackeritems = order.getTrackerDetail();
+        String trackerItemStr = "";
+        for (int j = 0; j < trackeritems.size(); j++) {
+            SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date getDate = null;
+            try {
+                getDate = existingUTCFormat.parse(trackeritems.get(j).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(getDate);
+            String newTime = requiredFormat.format(cal.getTime());
+            trackerItemStr += trackeritems.get(j).getStatus() + " (" + newTime + ")" + '\n';
+        }
+        TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
+        txtViewTracker.setText(trackerItemStr);
+
+        final StatusTracker current_status = StatusTracker.valueOf(order.getCurrent_status().toUpperCase());
+        ArrayList<String> statusArray = new ArrayList<>();
+        statusArray.add("UPDATE STATUS");
+        for(StatusTracker status: StatusTracker.values())
+        {
+            if(current_status == StatusTracker.ORDERED && status == StatusTracker.ORDERED){
+                // Hide the second item from Spinner
+                continue;
+            }
+            else if(current_status == StatusTracker.ACCEPTED && (status == StatusTracker.ORDERED
+                    ||status == StatusTracker.REJECTED   || status ==StatusTracker.ACCEPTED))
+            {
+                continue;
+            }
+            else if(current_status == StatusTracker.DELIVERED || current_status == StatusTracker.REJECTED )
+            {
+                continue;
+            }
+            statusArray.add(status.toString());
+        }
+
+//        // Initializing an ArrayAdapter
+//        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+//                this,android.R.layout.simple_spinner_dropdown_item,statusArray);
+        spinnerArrayAdapter.clear();
+        spinnerArrayAdapter.addAll(statusArray);
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                return view;
+//            }
+
+        spinner.setAdapter(spinnerArrayAdapter);  // Spinner click listener
+
+
+
+    }
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        userIsInteracting = true;
+    }
+    /**
+     *  This method will be invoked when user allows or deny's a permission from the permission dialog so take actions accordingly.
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Call Permission granted", Toast.LENGTH_LONG).show();
+                } else {
+                    String permission = permissions[0];
+                    boolean showRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
+                    if (!showRationale) {
+                        Toast.makeText(this, "Call Permission Denied with never show options", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Call Permission Denied", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+        }
     }
 
     private void setToolBar() {
@@ -237,9 +361,10 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
-        if(position !=0) {
+        if(userIsInteracting)
             updateStatusTracker(item, "ok");
-        }
+        isStartActivity = false;
+        userIsInteracting = false;
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
@@ -296,6 +421,37 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
+                    order.setCurrent_status(urls[1]);
+
+                    JSONArray trackerarr = null;
+                    try {
+                        trackerarr = new JSONArray(data);
+                        ArrayList<Tracker> trackerDetails = new ArrayList<Tracker>();
+                        for (int j = 0; j < trackerarr.length(); j++) {
+                            JSONObject trackerobject = trackerarr.getJSONObject(j);
+                            Tracker tracker = new Tracker();
+                            tracker.setStatus(trackerobject.getString("status"));
+                            tracker.setTime(trackerobject.getString("time"));
+                            if(trackerobject.has("reason"))
+                            {
+                                tracker.setReason(trackerobject.getString("reason"));
+                            }
+                            if(j ==0)
+                            {
+                                Date getDate = null;
+                                SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                try {
+                                    getDate = existingUTCFormat.parse(tracker.getTime());
+                                } catch (java.text.ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            trackerDetails.add(tracker);
+                        }
+                        order.setTrackerDetail(trackerDetails);
+                    } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                     return true;
                 }
 
@@ -313,7 +469,9 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
             // adapter.notifyDataSetChanged();
+            initStatusTracker();
 
+            TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
             if (result == false)
                 Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 

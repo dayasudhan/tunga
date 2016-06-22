@@ -324,7 +324,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/text_purple"
-            android:text="Rate Vendor"
+            android:text="Update Status"
             android:id="@+id/rate_vendor_text"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
