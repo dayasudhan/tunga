@@ -147,7 +147,7 @@ public class MenuFragment extends Fragment {
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
 
-                    String data = EntityUtils.toString(entity);
+                    //                   String data = EntityUtils.toString(entity);
 //                    if (data.equals("1")) {
 //
 //                        session.createLoginSession("Knvl", urls[1]);

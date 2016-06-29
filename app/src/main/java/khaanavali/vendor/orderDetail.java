@@ -214,45 +214,34 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
         TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
         txtViewTracker.setText(trackerItemStr);
 
-        final StatusTracker current_status = StatusTracker.valueOf(order.getCurrent_status().toUpperCase());
-        ArrayList<String> statusArray = new ArrayList<>();
-        statusArray.add("UPDATE STATUS");
-        for(StatusTracker status: StatusTracker.values())
+        try {
+            final StatusTracker current_status = StatusTracker.valueOf(order.getCurrent_status().toUpperCase());
+            ArrayList<String> statusArray = new ArrayList<>();
+            statusArray.add("UPDATE STATUS");
+            for (StatusTracker status : StatusTracker.values()) {
+                if (current_status == StatusTracker.ORDERED && status == StatusTracker.ORDERED) {
+                    // Hide the second item from Spinner
+                    continue;
+                } else if (current_status == StatusTracker.ACCEPTED && (status == StatusTracker.ORDERED
+                        || status == StatusTracker.REJECTED || status == StatusTracker.ACCEPTED)) {
+                    continue;
+                } else if (current_status == StatusTracker.DELIVERED || current_status == StatusTracker.REJECTED) {
+                    continue;
+                }
+                statusArray.add(status.toString());
+            }
+
+            spinnerArrayAdapter.clear();
+            spinnerArrayAdapter.addAll(statusArray);
+            spinner.setAdapter(spinnerArrayAdapter);  // Spinner click listener
+        }
+        catch(Exception e)
         {
-            if(current_status == StatusTracker.ORDERED && status == StatusTracker.ORDERED){
-                // Hide the second item from Spinner
-                continue;
-            }
-            else if(current_status == StatusTracker.ACCEPTED && (status == StatusTracker.ORDERED
-                    ||status == StatusTracker.REJECTED   || status ==StatusTracker.ACCEPTED))
-            {
-                continue;
-            }
-            else if(current_status == StatusTracker.DELIVERED || current_status == StatusTracker.REJECTED )
-            {
-                continue;
-            }
-            statusArray.add(status.toString());
+            e.printStackTrace();
         }
 
-//        // Initializing an ArrayAdapter
-//        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-//                this,android.R.layout.simple_spinner_dropdown_item,statusArray);
-        spinnerArrayAdapter.clear();
-        spinnerArrayAdapter.addAll(statusArray);
-//            @Override
-//            public View getDropDownView(int position, View convertView,
-//                                        ViewGroup parent) {
-//                View view = super.getDropDownView(position, convertView, parent);
-//                TextView tv = (TextView) view;
-//                return view;
-//            }
-
-        spinner.setAdapter(spinnerArrayAdapter);  // Spinner click listener
-
-
-
     }
+
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
@@ -361,7 +350,7 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
-        if(userIsInteracting)
+        if(userIsInteracting && !item.equals("UPDATE STATUS"))
             updateStatusTracker(item, "ok");
         isStartActivity = false;
         userIsInteracting = false;

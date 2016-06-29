@@ -29,6 +29,7 @@ public class SessionManager {
 	
 	// All Shared Preferences Keys
 	private static final String IS_LOGIN = "IsLoggedIn";
+	public static  boolean isKill = false;
 	
 	// User name (make variable public to access from outside)
 	public static final String KEY_NAME = "name";
@@ -82,7 +83,7 @@ public class SessionManager {
 			
 			// Add new Flag to start new Activity
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			
+		//	i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			// Staring Login Activity
 			_context.startActivity(i);
 		}
@@ -124,6 +125,7 @@ public class SessionManager {
 		
 		// Staring Login Activity
 		_context.startActivity(i);
+
 	}
 	
 	/**

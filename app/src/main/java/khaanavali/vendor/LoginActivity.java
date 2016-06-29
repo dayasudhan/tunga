@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Session Manager
         session = new SessionManager(getApplicationContext());
+        session.isKill = false;
         Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         un=(EditText)findViewById(R.id.et_un);
@@ -183,5 +184,11 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        session.isKill = true;
+//        getIntent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        MainActivity.this.finish();
+    }
 }

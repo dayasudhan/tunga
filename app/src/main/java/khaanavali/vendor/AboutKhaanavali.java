@@ -54,7 +54,7 @@ public class AboutKhaanavali extends Fragment {
 
         // displaying user data
 
-        lblEmail.setText(Html.fromHtml("Email: <b>" + "dayasudhankg@gmail.com" + "</b>"));
+        lblEmail.setText(Html.fromHtml("Email: <b>" + "khaanavali@gmail.com" + "</b>"));
         lblphone.setText(Html.fromHtml("Phone: <b>" + "9566229075" + "</b>"));
         lblwebsite.setText(Html.fromHtml("Website: <b>" + "http://khaanavali.com" + "</b>"));
 

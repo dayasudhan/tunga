@@ -4,14 +4,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About Me"
-        android:id="@+id/textView5"
-        android:layout_marginTop="40dip"
-        android:textColor="#166CED"
-        android:layout_gravity="center_horizontal" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="About Me"-->
+        <!--android:id="@+id/textView5"-->
+        <!--android:layout_marginTop="40dip"-->
+        <!--android:textColor="#166CED"-->
+        <!--android:layout_gravity="center_horizontal" />-->
 
     <!-- Name Label -->
     <TextView
@@ -33,11 +33,7 @@
         android:textColor="@color/primary_text"
         android:layout_marginBottom="40dip"/>
 
-    <!-- Button to show session data -->
-    <Button android:id="@+id/btnLogout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#166CED"
-        android:text="Logout"/>
+
+
 
 </LinearLayout>

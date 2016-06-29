@@ -24,7 +24,7 @@ public class AboutMeFragment extends Fragment {
     // Session Manager Class
     SessionManager session;
     // Button Logout
-    Button btnLogout;
+    //Button btnLogout;
 
     @Nullable
     @Override
@@ -37,7 +37,7 @@ public class AboutMeFragment extends Fragment {
         ((MainActivity) getActivity())
                 .setActionBarTitle("About Me");
         // Button logout
-        btnLogout = (Button)rootview.findViewById(R.id.btnLogout);
+        //btnLogout = (Button)rootview.findViewById(R.id.btnLogout);
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
 
@@ -55,16 +55,16 @@ public class AboutMeFragment extends Fragment {
         /**
          * Logout button click event
          * */
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // Clear the session data
-                // This will clear all session data and
-                // redirect user to LoginActivity
-                session.logoutUser();
-            }
-        });
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//                // Clear the session data
+//                // This will clear all session data and
+//                // redirect user to LoginActivity
+//                session.logoutUser();
+//            }
+//        });
 
         return rootview;
     }

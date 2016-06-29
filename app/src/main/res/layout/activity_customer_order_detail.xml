@@ -211,13 +211,18 @@
             android:layout_toEndOf="@+id/customer_contact_text" />
         <Button
         android:id="@+id/buttonCall"
+        android:background="@drawable/buttonselector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
+        android:textColor="#ffffff"
+
         android:layout_alignBottom="@+id/customer_contact_value"
         android:layout_toRightOf="@+id/customer_contact_value"
         android:layout_toEndOf="@+id/customer_contact_value"
         android:text="Call Now" />
+
+
 
     </RelativeLayout>
     <RelativeLayout

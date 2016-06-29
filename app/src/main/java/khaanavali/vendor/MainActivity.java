@@ -87,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(session.isKill)
+        {
+            session.isKill = false;
+            finish();
+        }
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -170,8 +182,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-
-      //  Snackbar.make(layout, "Button " + btnName, Snackbar.LENGTH_SHORT).show();
         return false;
+    }
+    @Override
+    public void onBackPressed() {
+        if (dLayout.isDrawerOpen(GravityCompat.START)) {
+            dLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
