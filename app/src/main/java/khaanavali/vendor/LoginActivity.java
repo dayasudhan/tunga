@@ -16,9 +16,14 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
@@ -60,11 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
-//                ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-//                postParameters.add(new BasicNameValuePair("username", un.getText().toString()));
-//                postParameters.add(new BasicNameValuePair("password", pw.getText().toString()));
                 if (un.getText().toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "You did not enter a username", Toast.LENGTH_SHORT).show();
                     return;
@@ -128,15 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     String data = EntityUtils.toString(entity);
                     if (data.equals("1")) {
-
                         session.createLoginSession("Knvl", urls[1], uniqueId);
-                        startService(new Intent(getBaseContext(), NotificationListener.class));
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        //    Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "error in logged in", Toast.LENGTH_LONG).show();
-//                    }
                     }
                     return true;
                 }
@@ -157,8 +150,13 @@ public class LoginActivity extends AppCompatActivity {
             //adapter.notifyDataSetChanged();
             if (result == false)
                 Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
-//            else
-//                Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
+            else
+            {
+//                startService(new Intent(getBaseContext(), NotificationListener.class));
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+                    getHotelInfo();
+            }
 
         }
     }
@@ -190,5 +188,80 @@ public class LoginActivity extends AppCompatActivity {
         session.isKill = true;
 //        getIntent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        MainActivity.this.finish();
+    }
+    public void getHotelInfo()
+    {
+        String url =  Constants.GET_VENDOR_INFO + session.getEmail();
+        new GETJSONAsyncTask().execute(url);
+    }
+    public  class GETJSONAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+        ProgressDialog dialog;
+
+        public  GETJSONAsyncTask()
+        {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            super.onPreExecute();
+            dialog = new ProgressDialog(LoginActivity.this);
+            dialog.setMessage("Loading, please wait");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+                    session.setHotelInfo(data);
+
+                    JSONArray jarray = new JSONArray(data);
+
+                    for (int i = 0; i < jarray.length(); i++) {
+                        JSONObject object = jarray.getJSONObject(i);
+
+                        if(object.has("isOpen")) {
+                            String isopen =object.get("isOpen").toString();
+                            session.setHotelopen(isopen);
+                        }
+                    }
+                    return true;
+                }
+            }  catch (IOException e) {
+                e.printStackTrace();
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            if (result == false)
+                Toast.makeText(getApplicationContext(), "Unable to fetch add from server", Toast.LENGTH_LONG).show();
+            else
+            {
+                startService(new Intent(getBaseContext(), NotificationListener.class));
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }

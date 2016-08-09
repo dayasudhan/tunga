@@ -14,6 +14,7 @@ public class Constants {
     public static final String DELETE_MENU= MAIN_URL + "/v1/vendor/menu/item/";
     public static final String GET_STATUS_URL = MAIN_URL +"/v1/vendor/order/status/";
     public static final String POST_ISOPEN = MAIN_URL +"/v1/vendor/isopen/";
+    public static final String GET_VENDOR_INFO = MAIN_URL +"/v1/vendor/info/";
     public static final String FIREBASE_APP = "https://project-8598805513533999178.firebaseio.com";
     //To store the firebase id in shared preferences
     public static final String UNIQUE_ID = "uniqueid";

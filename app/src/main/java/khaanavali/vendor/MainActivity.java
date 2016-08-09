@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 
+import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,25 +55,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Initializing firebase
-
         session = new SessionManager(getApplicationContext());
-        // put your code here...
         if(session.checkLogin() && !checkNotificationListenerServiceRunning())
         {
             startService(new Intent(this, NotificationListener.class));
-           // stopService(new Intent(this,NotificationListener.class));
         }
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // int notificationId = getIntent().getExtras().getInt("notificationID");
         notificationManager.cancelAll();
-
-
         setContentView(R.layout.activity_main_nav);
         layout = (RelativeLayout) findViewById(R.id.layout);
-
+        getVendorinfo();
         setNavigationDrawer();
         setToolBar();
+    }
+
+    private void getVendorinfo() {
+      //new JSONAsyncTask().execute(Constants.GET_VENDOR_INFO);
     }
 
     public boolean checkNotificationListenerServiceRunning(){

@@ -52,8 +52,16 @@ public class SettingsFragment extends Fragment {
         HashMap<String, String> user = session.getUserDetails();
         email = user.get(SessionManager.KEY_EMAIL);
         ToggleButton toggle  = (ToggleButton) rootview.findViewById(R.id.toggleButton);
-        toggle.setTextOn("Close Hotel");
+        toggle.setTextOff("Close Hotel");
         toggle.setTextOn("Open Hotel");
+        toggle.invalidate();
+        if(session.getHotelopen().equals("1")) {
+            toggle.setEnabled(true);
+        }
+        else
+        {
+            toggle.setEnabled(false);
+        }
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

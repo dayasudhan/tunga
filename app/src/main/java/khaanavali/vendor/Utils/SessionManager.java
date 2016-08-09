@@ -37,6 +37,12 @@ public class SessionManager {
 	// Email address (make variable public to access from outside)
 	public static final String KEY_EMAIL = "email";
 
+	// Email address (make variable public to access from outside)
+	public static final String KEY_HOTEL_INFO = "hotelinfo";
+
+	// Email address (make variable public to access from outside)
+	public static final String KEY_ISOPEN = "isopen";
+
 	//To store the firebase id in shared preferences
 	public static final String UNIQUE_ID = "uniqueid";
 	// Constructor
@@ -65,7 +71,31 @@ public class SessionManager {
 		editor.commit();
 
 	}
-
+	public String getEmail()
+	{
+		String id = pref.getString(KEY_EMAIL, null);
+		return id;
+	}
+	public void setHotelInfo(String hotelInfo)
+	{
+		editor.putString(KEY_HOTEL_INFO,hotelInfo);
+		editor.commit();
+	}
+	public void setHotelopen(String isopen)
+	{
+		editor.putString(KEY_ISOPEN,isopen);
+		editor.commit();
+	}
+	public String getHotelInfo()
+	{
+		String id = pref.getString(KEY_HOTEL_INFO, null);
+		return id;
+	}
+	public String getHotelopen()
+	{
+		String id = pref.getString(KEY_ISOPEN, null);
+		return id;
+	}
 	/**
 	 * Check login method wil check user login status
 	 * If false it will redirect user to login page
