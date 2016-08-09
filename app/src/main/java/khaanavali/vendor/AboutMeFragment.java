@@ -15,9 +15,6 @@ import java.util.HashMap;
 import khaanavali.vendor.R;
 import khaanavali.vendor.Utils.SessionManager;
 
-/**
- * Created by gagan on 11/6/2015.
- */
 public class AboutMeFragment extends Fragment {
 
     View rootview;

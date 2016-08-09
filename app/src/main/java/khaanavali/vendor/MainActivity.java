@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (itemId == R.id.navigation_about_Khaanavali) {
                     frag = new AboutKhaanavali();
                 }
+                else if (itemId == R.id.navigation_settings) {
+                    frag = new SettingsFragment();
+                }
                 else if (itemId == R.id.navigation_logout) {
                     frag = new LogoutFragment();
                 }
