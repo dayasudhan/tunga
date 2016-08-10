@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -39,7 +40,8 @@ public class SettingsFragment extends Fragment {
     View rootview;
     SessionManager session;
     String email;
-
+    private Switch mySwitch;
+    private TextView switchStatus;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,28 +53,56 @@ public class SettingsFragment extends Fragment {
                 .setActionBarTitle("Settings");
         HashMap<String, String> user = session.getUserDetails();
         email = user.get(SessionManager.KEY_EMAIL);
-        ToggleButton toggle  = (ToggleButton) rootview.findViewById(R.id.toggleButton);
-        toggle.setTextOff("Close Hotel");
-        toggle.setTextOn("Open Hotel");
-        toggle.invalidate();
+
+
+
+
+        switchStatus = (TextView) rootview.findViewById(R.id.switchStatus);
+        mySwitch = (Switch) rootview.findViewById(R.id.switch1);
+
+        //set the switch to ON
         if(session.getHotelopen().equals("1")) {
-            toggle.setEnabled(true);
+            mySwitch.setChecked(true);
+            switchStatus.setText("Open");
         }
         else
         {
-            toggle.setEnabled(false);
+            mySwitch.setChecked(false);
+            switchStatus.setText("Closed");
         }
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AddIsOpen("0");
-                } else {
+        //attach a listener to check for changes in state
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    switchStatus.setText("Open");
                     AddIsOpen("1");
+                }else{
+                    switchStatus.setText("Closed");
+                    AddIsOpen("0");
                 }
+
             }
         });
 
         return rootview;
+    }
+    @Override
+    public void onResume() {
+            super.onResume();
+        //set the switch to ON
+        if(session.getHotelopen().equals("1")) {
+            mySwitch.setChecked(true);
+            switchStatus.setText("Open");
+        }
+        else
+        {
+            mySwitch.setChecked(false);
+            switchStatus.setText("Closed");
+        }
     }
     public void AddIsOpen(String isOpen)
     {
@@ -116,6 +146,7 @@ public class SettingsFragment extends Fragment {
                 int status = response.getStatusLine().getStatusCode();
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
+                    session.setHotelopen(urls[1]);
                     return true;
                 }
             } catch (ParseException e1) {
@@ -130,7 +161,7 @@ public class SettingsFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
 
-            if (result == false) {
+            if (result == false) {cd ../
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to posh data to server", Toast.LENGTH_LONG).show();
             }
             else
