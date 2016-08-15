@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.splunk.mint.Mint;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -78,7 +79,7 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customer_order_detail);
-
+        Mint.initAndStartSession(this, "49d903c2");
         Intent i = getIntent();
         // Order order = (Order)i.getSerializableExtra("order");
         pref = getSharedPreferences("Khaanavali", 0);
@@ -399,6 +400,9 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
                 StringEntity se = new StringEntity(json);
 
                 HttpPut request = new HttpPut(urls[0]);
+                request.setHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.setHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.setHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
                 request.setEntity(se);
                 request.setHeader("Accept", "application/json");

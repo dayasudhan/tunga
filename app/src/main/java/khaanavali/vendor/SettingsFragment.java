@@ -137,6 +137,9 @@ public class SettingsFragment extends Fragment {
                 postParameters.add(new BasicNameValuePair("isopen", urls[1]));
 
                 HttpPost request = new HttpPost(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
                 UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
                 request.setEntity(formEntity);
@@ -161,7 +164,7 @@ public class SettingsFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
 
-            if (result == false) {cd ../
+            if (result == false) {
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to posh data to server", Toast.LENGTH_LONG).show();
             }
             else

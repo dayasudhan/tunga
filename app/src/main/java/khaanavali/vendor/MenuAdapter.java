@@ -148,9 +148,12 @@ static class ViewHolder {
             try {
 
                 //------------------>>
-                HttpGet httppost = new HttpGet(urls[0]);
+                HttpGet request = new HttpGet(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
+                HttpResponse response = httpclient.execute(request);
 
                 // StatusLine stat = response.getStatusLine();
                 int status = response.getStatusLine().getStatusCode();
@@ -224,9 +227,12 @@ static class ViewHolder {
             try {
 
                 //------------------>>
-                HttpDelete httppost = new HttpDelete(urls[0]);
+                HttpDelete request = new HttpDelete(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
+                HttpResponse response = httpclient.execute(request);
 
                 // StatusLine stat = response.getStatusLine();
               int status = response.getStatusLine().getStatusCode();

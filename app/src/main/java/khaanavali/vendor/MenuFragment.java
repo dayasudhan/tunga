@@ -123,18 +123,14 @@ public class MenuFragment extends Fragment {
         @Override
         protected Boolean doInBackground(String... urls) {
             try {
-
-                //------------------>>
-//                HttpGet httppost = new HttpGet(urls[0]);
-//                HttpClient httpclient = new DefaultHttpClient();
-//                HttpResponse response = httpclient.execute(httppost);
-
                 ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
                 postParameters.add(new BasicNameValuePair("fooditem", urls[1]));
                 postParameters.add(new BasicNameValuePair("foodprice", urls[2]));
 
-
                 HttpPost request = new HttpPost(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
                 UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
                 request.setEntity(formEntity);
@@ -147,16 +143,6 @@ public class MenuFragment extends Fragment {
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
 
-                    //                   String data = EntityUtils.toString(entity);
-//                    if (data.equals("1")) {
-//
-//                        session.createLoginSession("Knvl", urls[1]);
-//                        Intent intent = new Intent("com.example.gagan.khanavali_main.MainActivity");
-//                        startActivity(intent);
-//                        //  Toast.makeText(getApplicationContext(), "successfully logged in", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        //Toast.makeText(getApplicationContext(), "error in logged in", Toast.LENGTH_LONG).show();
-//                    }
                     return true;
                 }
 
@@ -173,19 +159,14 @@ public class MenuFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
                 dialog.cancel();
-           // adapter.notifyDataSetChanged();
+
             bindView();
             if (result == false)
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
         }
     }
-//    public void deleteButtonClickHandler(View v)
-//    {
-//        LinearLayout vwParentRow = (LinearLayout)v.getParent();
-//        TextView child = (TextView)vwParentRow.getChildAt(0);
-//        Toast.makeText(getActivity().getApplicationContext(), child.getText(), Toast.LENGTH_LONG).show();
-//    }
+
     public void bindView() {
         String order_url = Constants.GET_MENU;
         order_url= order_url.concat(vendor_email);

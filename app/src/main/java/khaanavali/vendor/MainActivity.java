@@ -38,6 +38,11 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 
+import com.splunk.mint.Mint;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
@@ -47,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout dLayout;
     SessionManager session;
 
+    TimerTask task = new TimerTask() {
+
+        @Override
+        public void run() {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            isTodayMenuselected = true;
+            transaction.replace(R.id.frame, new OrderListFragment());
+            transaction.commit();
+            // TODO Auto-generated method stub
+            }
+    };
+
+    private void finishscreen() {
+        this.finish();
+    }
+
     public boolean isTodayMenuselected() {
         return isTodayMenuselected;
     }
@@ -54,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean isTodayMenuselected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        Mint.initAndStartSession(this, "49d903c2");
         session = new SessionManager(getApplicationContext());
         if(session.checkLogin() && !checkNotificationListenerServiceRunning())
         {
@@ -67,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         getVendorinfo();
         setNavigationDrawer();
         setToolBar();
+        if(session.checkLogin()){
+                                    Timer t = new Timer();
+        t.schedule(task, 5000);}
     }
 
     private void getVendorinfo() {

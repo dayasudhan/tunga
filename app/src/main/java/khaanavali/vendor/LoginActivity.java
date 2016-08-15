@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.splunk.mint.Mint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
+        Mint.initAndStartSession(this, "49d903c2");
         // Session Manager
         session = new SessionManager(getApplicationContext());
         session.isKill = false;
@@ -115,6 +116,9 @@ public class LoginActivity extends AppCompatActivity {
                 postParameters.add(new BasicNameValuePair("uniqueid", uniqueId));
 
                 HttpPost request = new HttpPost(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
                 UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
                 request.setEntity(formEntity);
@@ -219,9 +223,12 @@ public class LoginActivity extends AppCompatActivity {
             try {
 
                 //------------------>>
-                HttpGet httppost = new HttpGet(urls[0]);
+                HttpGet request = new HttpGet(urls[0]);
+                request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
+                request.addHeader(Constants.VERSION_KEY, Constants.VERSION_VALUE);
+                request.addHeader(Constants.CLIENT_KEY, Constants.CLIENT_VALUE);
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
+                HttpResponse response = httpclient.execute(request);
 
                 // StatusLine stat = response.getStatusLine();
                 int status = response.getStatusLine().getStatusCode();
