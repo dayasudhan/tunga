@@ -10,6 +10,16 @@ public class HotelMenu {
     private String availability;
     private String price;
     private String name;
+
+    public String getTimings() {
+        return timings;
+    }
+
+    public void setTimings(String timings) {
+        this.timings = timings;
+    }
+
+    private String timings;
     // private String image;
     private String id;
     public HotelMenu() {

@@ -1,7 +1,9 @@
 package khaanavali.vendor;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.os.AsyncTask;
@@ -12,9 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -26,15 +36,7 @@ import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
-import khaanavali.vendor.R;
 import khaanavali.vendor.Utils.Constants;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by gagan on 11/6/2015.
@@ -52,6 +54,8 @@ public class MenuFragment extends Fragment {
     String vendor_email;
     EditText eItemName;
     EditText eItemPrice;
+    CheckBox cBreakfast,cLunch,cDinner;
+    public   int bBreakfast=0,bLunch=0,bDinner=0,itemTiming=0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,17 +83,81 @@ public class MenuFragment extends Fragment {
 //        });
              eItemName = (EditText)rootview.findViewById(R.id.editItemName);
              eItemPrice = (EditText)rootview.findViewById(R.id.editItemprice);
+
+            cBreakfast=(CheckBox)rootview.findViewById(R.id.checkBoxBreakfast);
+            cLunch=(CheckBox)rootview.findViewById(R.id.checkBoxLunch);
+            cDinner=(CheckBox)rootview.findViewById(R.id.checkBoxDinner);
+
+        cBreakfast.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    if(cBreakfast.isChecked())
+                    {
+                        bBreakfast=1;
+                    }
+                    else {
+                        bBreakfast=0;
+                    }
+                }
+            });
+        cLunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if(cLunch.isChecked())
+                {
+                    bLunch=2;
+                }
+                else {
+                    bLunch=0;
+                }
+            }
+        });
+        cDinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if(cDinner.isChecked())
+                {
+                    bDinner=4;
+                }
+                else {
+                    bDinner=0;
+                }
+            }
+        });
+
+
             Button addButton = (Button) rootview.findViewById(R.id.addMenuItemButton);//editItemprice
+
             addButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
+                    itemTiming=bBreakfast+bDinner+bLunch;
+                    if (itemTiming!=0) {
+                        AddMenuItem(eItemName.getText().toString(), eItemPrice.getText().toString(), Integer.toString(itemTiming));
+                        eItemName.setText("");
+                        eItemPrice.setText("");
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Alert")
+                                .setMessage("Please Check atleast one Checkbox")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                    AddMenuItem(eItemName.getText().toString(),eItemPrice.getText().toString());
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        Toast.makeText(getActivity(), "thank you", Toast.LENGTH_SHORT).show();
+                                    }})
+                                .setNegativeButton(android.R.string.no, null).show();
+
+                    }
+
                 }
-            });
+                });
+
         return rootview;
     }
-    public void AddMenuItem(String ItemName,String ItemPrice)
+    public void AddMenuItem(String ItemName,String ItemPrice ,String ItemTiming)
     {
         if(ItemName.isEmpty() || ItemPrice.isEmpty()) {
             Toast.makeText(getActivity().getApplicationContext(), "Enter Proper MenuItem", Toast.LENGTH_LONG).show();
@@ -98,7 +166,7 @@ public class MenuFragment extends Fragment {
         else {
             String order_url = Constants.GET_MENU;
             order_url = order_url.concat(vendor_email);
-            new AddJSONAsyncTask().execute(order_url, ItemName, ItemPrice);
+            new AddJSONAsyncTask().execute(order_url, ItemName, ItemPrice,ItemTiming);
         }
     }
     public  class AddJSONAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -126,6 +194,9 @@ public class MenuFragment extends Fragment {
                 ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
                 postParameters.add(new BasicNameValuePair("fooditem", urls[1]));
                 postParameters.add(new BasicNameValuePair("foodprice", urls[2]));
+
+                postParameters.add(new BasicNameValuePair("timings", urls[3]));
+
 
                 HttpPost request = new HttpPost(urls[0]);
                 request.addHeader(Constants.SECUREKEY_KEY, Constants.SECUREKEY_VALUE);
@@ -221,7 +292,7 @@ public class MenuFragment extends Fragment {
                         cus.setAvailability(object.getString("availability"));
                         cus.setid(object.getString("_id"));
                         cus.setPrice(object.getString("price"));
-                        // cus.setImage(object.getString("image"));
+                        cus.setTimings(object.getString("timings"));
 
                         menuList.add(cus);
                     }

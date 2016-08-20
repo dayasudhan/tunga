@@ -24,6 +24,8 @@ package khaanavali.vendor;
 import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -31,19 +33,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
-
+import android.widget.Toast;
 
 import com.splunk.mint.Mint;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import khaanavali.vendor.Utils.Constants;
 import khaanavali.vendor.Utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,18 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout layout;
     private DrawerLayout dLayout;
     SessionManager session;
-
-    TimerTask task = new TimerTask() {
-
-        @Override
-        public void run() {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            isTodayMenuselected = true;
-            transaction.replace(R.id.frame, new OrderListFragment());
-            transaction.commit();
-            // TODO Auto-generated method stub
-            }
-    };
+    private boolean ishotelFragmentOpen;
+    private  boolean isOtherFragmentOpen=false;
+    private boolean onBack=false;
 
     private void finishscreen() {
         this.finish();
@@ -86,13 +74,23 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         setContentView(R.layout.activity_main_nav);
+        ishotelFragmentOpen = true;
         layout = (RelativeLayout) findViewById(R.id.layout);
         getVendorinfo();
         setNavigationDrawer();
         setToolBar();
-        if(session.checkLogin()){
-                                    Timer t = new Timer();
-        t.schedule(task, 5000);}
+      /*  if(onBack==false && isOtherFragmentOpen==false) {
+            Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame, new OrderListFragment());
+                    transaction.commit();
+
+                }
+            }, 0, 180000);
+        }*/
     }
 
     private void getVendorinfo() {
@@ -151,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         isTodayMenuselected = true;
         transaction.replace(R.id.frame, new OrderListFragment());
         transaction.commit();
-
+        ishotelFragmentOpen = true;
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -161,26 +159,38 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.navigation_order_today_list) {
                     isTodayMenuselected = true;
+                    ishotelFragmentOpen = true;
+                  //  isOtherFragmentOpen=false;
                    frag = new OrderListFragment();
                 }
                 else if (itemId == R.id.navigation_order_list) {
                     isTodayMenuselected = false;
+                    ishotelFragmentOpen = true;
+                    //isOtherFragmentOpen=false;
                     frag = new OrderListFragment();
                 }
                 else if (itemId == R.id.navigation_menu) {
+                    //isOtherFragmentOpen=false;
                     frag = new MenuFragment();
                 }
                 else if (itemId == R.id.navigation_about_me) {
+                    //isOtherFragmentOpen=true;
                     frag = new AboutMeFragment();
                 }
                 else if (itemId == R.id.navigation_about_Khaanavali) {
+                    //isOtherFragmentOpen=true;
+                    ishotelFragmentOpen = false;
                     frag = new AboutKhaanavali();
                 }
                 else if (itemId == R.id.navigation_settings) {
+                    ishotelFragmentOpen = false;
+                    //isOtherFragmentOpen=true;
                     frag = new SettingsFragment();
                 }
                 else if (itemId == R.id.navigation_logout) {
+                    //isOtherFragmentOpen=true;
                     frag = new LogoutFragment();
+                    ishotelFragmentOpen = false;
                 }
 
                 if (frag != null) {
@@ -211,12 +221,34 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
         if (dLayout.isDrawerOpen(GravityCompat.START)) {
             dLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        if (ishotelFragmentOpen == false) {
+            dLayout.openDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                    onBack=true;
+                }
+            }, 2000);
+
         }
     }
 }
