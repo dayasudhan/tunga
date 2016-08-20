@@ -7,10 +7,9 @@ package khaanavali.vendor;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.ParseException;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +19,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -29,18 +33,11 @@ import cz.msebera.android.httpclient.client.methods.HttpDelete;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
-import khaanavali.vendor.R;
 import khaanavali.vendor.Utils.Constants;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class MenuAdapter extends ArrayAdapter<HotelMenu> {
 
+    private int breakfast,lunch,dinner;
     public ArrayList<HotelMenu> getCustomerList() {
         return customerList;
     }
@@ -77,7 +74,12 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
            // holder.itemavailability = (TextView) v.findViewById(R.id.itemavailability);
             holder.itemname = (TextView) v.findViewById(R.id.itemname);
             holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
+            holder.itemTimeBreakfast = (TextView) v.findViewById(R.id.textViewBreakfast);
+            holder.itemTimeLunch = (TextView) v.findViewById(R.id.textViewLunch);
+            holder.itemTimeDinner = (TextView) v.findViewById(R.id.textViewDinner);
+
         Button deleteButton = (Button) v.findViewById(R.id.delete_menu_Item_button);
+
         deleteButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 deleteMenuItem(customerList.get(position).getName());
@@ -96,7 +98,51 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
    // holder.itemavailability.setText(customerList.get(position).getAvailability());
     holder.itemprice.setText(customerList.get(position).getPrice());
 
-    return v;
+        switch(Integer.parseInt(customerList.get(position).getTimings()))
+        {
+            case 1: holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+                    holder.itemTimeLunch.setTextColor(Color.RED);
+                    holder.itemTimeDinner.setTextColor(Color.RED);
+                    break;
+            case  2: holder.itemTimeBreakfast.setTextColor(Color.RED);
+                     holder.itemTimeLunch.setTextColor(Color.GREEN);
+                     holder.itemTimeDinner.setTextColor(Color.RED);
+                       break;
+            case 3: holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+                    holder.itemTimeLunch.setTextColor(Color.GREEN);
+                    holder.itemTimeDinner.setTextColor(Color.RED);
+                    break;
+            case 4: holder.itemTimeBreakfast.setTextColor(Color.RED);
+                    holder.itemTimeLunch.setTextColor(Color.RED);
+                    holder.itemTimeDinner.setTextColor(Color.GREEN);
+                    break;
+            case 5: holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+                    holder.itemTimeLunch.setTextColor(Color.RED);
+                    holder.itemTimeDinner.setTextColor(Color.GREEN);
+                    break;
+            case 6: holder.itemTimeBreakfast.setTextColor(Color.RED);
+                    holder.itemTimeLunch.setTextColor(Color.GREEN);
+                    holder.itemTimeDinner.setTextColor(Color.GREEN);
+                    break;
+            case 7: holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+                    holder.itemTimeLunch.setTextColor(Color.GREEN);
+                    holder.itemTimeDinner.setTextColor(Color.GREEN);
+                    break;
+
+        }
+        if(breakfast==1)
+        {
+
+        }
+        if(lunch==1)
+        {
+            holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+        }
+        if(dinner==1)
+        {
+            holder.itemTimeBreakfast.setTextColor(Color.GREEN);
+        }
+        return v;
 
 }
 static class ViewHolder {
@@ -104,7 +150,9 @@ static class ViewHolder {
         public TextView itemname;
         public TextView itemprice;
         public TextView itemavailability;
-        public TextView itemid;
+        public TextView itemTimeBreakfast;
+        public TextView itemTimeLunch;
+        public TextView itemTimeDinner;
     }
     public void deleteMenuItem(String ItemName)
     {
@@ -173,6 +221,7 @@ static class ViewHolder {
                         cus.setAvailability(object.getString("availability"));
                         cus.setid(object.getString("_id"));
                         cus.setPrice(object.getString("price"));
+                        cus.setTimings(object.getString("timings"));
                         // cus.setImage(object.getString("image"));
 
                         customerList.add(cus);

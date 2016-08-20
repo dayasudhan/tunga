@@ -2,11 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
-
+    buildToolsVersion '23.0.1'
     defaultConfig {
         applicationId "khaanavali.vendor"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -18,11 +17,13 @@ android {
         }
     }
     //Add the following block
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
 
+    }
+    productFlavors {
     }
 }
 repositories {
@@ -31,13 +32,14 @@ repositories {
     }
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile 'com.firebase:firebase-client-android:2.5.1+'
+    compile 'com.firebase:firebase-client-android:2.5.2+'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile group: 'cz.msebera.android' , name: 'httpclient', version: '4.4.1.1'
+    compile 'cz.msebera.android:httpclient:4.4.1.1'
+    compile 'com.android.support:design:23.2.0'
     compile 'com.splunk.mint:mint:5.0.0'
     compile files('libs/gson-2.2.jar')
 }

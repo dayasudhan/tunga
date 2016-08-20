@@ -17,11 +17,10 @@
             android:textColor="@color/text_purple"
             android:text="Menu Add"
             android:id="@+id/menu_add_text"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/addMenuItemButton"
-            android:layout_alignStart="@+id/addMenuItemButton"
 
-            android:focusable="false" />
+            android:focusable="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/Menu_Item_Name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,23 +28,12 @@
             android:text="Item Name"
             android:id="@+id/Menu_Item_Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="15dp"
             android:textColor="@color/primary_text"
-            android:layout_marginLeft="3dp"
-            android:layout_below="@+id/menu_add_text"/>
+            android:layout_marginLeft="10dp"
+            android:layout_alignBottom="@+id/editItemName"
+            android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editItemName"
-            android:layout_alignTop="@+id/Menu_Item_Name"
-            android:layout_toRightOf="@+id/Menu_Item_Name"
-            android:singleLine="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="3dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
 
-            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,52 +42,47 @@
             android:id="@+id/Menu_Item_price"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:singleLine="true"
-            android:layout_marginTop="15dp"
             android:textColor="@color/primary_text"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/menu_add_text"
-            android:layout_toRightOf="@+id/editItemName"
-            android:layout_alignBottom="@+id/editItemName"
-            android:layout_toEndOf="@+id/editItemName" />
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/editItemName"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:id="@+id/editItemprice"
-            android:layout_alignTop="@+id/Menu_Item_price"
-            android:layout_toRightOf="@+id/Menu_Item_price"
             android:inputType="number"
             android:ems="10"
             android:singleLine="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="3dp"
-            android:layout_toEndOf="@+id/Menu_Item_price"
             android:textAppearance="?android:attr/textAppearanceMedium"
 
 
-            />
-
-        <Button
-
-            android:layout_width="wrap_content"
+            android:layout_alignBottom="@+id/Menu_Item_price"
+            android:layout_alignRight="@+id/editItemName"
+            android:layout_alignEnd="@+id/editItemName"
+            android:layout_alignLeft="@+id/editItemName"
+            android:layout_alignStart="@+id/editItemName" />
+        <EditText
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Add Item"
-            android:textColor="#ffffff"
-            android:id="@+id/addMenuItemButton"
-            android:gravity="center_horizontal|center_vertical"
-            android:layout_below="@+id/editItemName"
-            android:layout_centerInParent="true"
-            android:background="@drawable/menubuttonselector"
+            android:id="@+id/editItemName"
+            android:singleLine="true"
+
             android:textAppearance="?android:attr/textAppearanceMedium"
-             />
+
+            android:layout_below="@+id/menu_add_text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/menu_add_text"
+            android:layout_toEndOf="@+id/menu_add_text" />
 
 
     </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/menu_details_lay"
+            android:layout_below="@+id/addMenuItemButton"
             android:layout_marginTop="5dp"
             android:id="@+id/menu_list_lay"
             android:paddingBottom="5dp"
@@ -111,11 +94,60 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/menu_row2" >
+                tools:listitem="@layout/menu_row2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true">
 
             </ListView>
         </RelativeLayout>
-        <!--<TextView-->
+
+    <Button
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item"
+        android:textColor="#ffffff"
+        android:id="@+id/addMenuItemButton"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@drawable/menubuttonselector"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/menu_details_lay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/checkBoxDinner"
+        android:layout_toEndOf="@+id/checkBoxDinner"
+        android:layout_alignBottom="@+id/checkBoxDinner" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breakfast"
+        android:id="@+id/checkBoxBreakfast"
+        android:checked="false"
+        android:layout_below="@+id/menu_details_lay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lunch"
+        android:id="@+id/checkBoxLunch"
+        android:checked="false"
+        android:layout_below="@+id/menu_details_lay"
+        android:layout_toRightOf="@+id/checkBoxBreakfast"
+        android:layout_toEndOf="@+id/checkBoxBreakfast" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dinner"
+        android:id="@+id/checkBoxDinner"
+        android:checked="false"
+        android:layout_below="@+id/menu_details_lay"
+        android:layout_toRightOf="@+id/checkBoxLunch"
+        android:layout_toEndOf="@+id/checkBoxLunch" />
+    <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:textSize="16sp"-->
