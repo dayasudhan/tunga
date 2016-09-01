@@ -4,10 +4,10 @@ package khaanavali.vendor.Utils;
  * Created by dganeshappa on 6/8/2016.
  */
 public class Constants {
-    public static final String LOCALHOST_URL = "http://10.239.54.38:3000";
+    public static final String LOCALHOST_URL = "http://192.168.1.104:3000";
     public static final String RELEASE_URL = "https://oota.herokuapp.com";
     public static final String DEBUG_URL = "https://kuruva.herokuapp.com";
-    public static final String MAIN_URL =RELEASE_URL;
+    public static final String MAIN_URL =LOCALHOST_URL;
     public static final String ORDER_URL = MAIN_URL + "/v1/vendor/order/";
     public static final String LOGIN_URL =  MAIN_URL +"/v1/m/login";
     public static final String GET_MENU = MAIN_URL +"/v1/vendor/menu/";
