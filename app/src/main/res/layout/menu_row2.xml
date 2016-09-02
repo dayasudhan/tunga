@@ -5,33 +5,31 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Item Name"
         android:textColor="@color/primary_text"
         android:id="@+id/itemname"
-
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-
-        android:layout_alignParentTop="true" />
+        android:paddingLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="itemprice"
-
+        android:paddingLeft="10dp"
         android:id="@+id/itemprice"
         android:textColor="@color/secondary_text"
 
 
-        android:layout_marginTop="5dp"
         android:layout_below="@+id/itemname"
-        android:layout_alignLeft="@+id/itemname"
-        android:layout_alignStart="@+id/itemname" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp" />
     <!--<TextView-->
         <!--android:id="@+id/itemavailability"-->
         <!--android:layout_width="wrap_content"-->
@@ -45,54 +43,16 @@
         <!--android:text="availability" />-->
 
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
+    <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
-        android:background="@drawable/menudeletebuttonselector"
-        android:textColor="#ffffff"
-        android:id="@+id/delete_menu_Item_button"
-        android:gravity="center_horizontal|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-
-        android:layout_alignParentTop="true"
+        android:text="Close/Open"
+        android:id="@+id/onoff"
+        android:layout_gravity="center_horizontal"
+        android:checked="false"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="B"
-        android:id="@+id/textViewBreakfast"
-        android:layout_alignTop="@+id/itemprice"
-        android:layout_toLeftOf="@+id/textViewLunch"
-        android:layout_toStartOf="@+id/textViewLunch"
-        android:layout_marginRight="29dp"
-        android:layout_marginEnd="29dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="L"
-        android:id="@+id/textViewLunch"
-        android:layout_alignTop="@+id/textViewBreakfast"
-        android:layout_toLeftOf="@+id/textViewDinner"
-        android:layout_toStartOf="@+id/textViewDinner" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="D"
-        android:id="@+id/textViewDinner"
-        android:layout_alignTop="@+id/textViewLunch"
-        android:layout_toRightOf="@+id/itemname"
-        android:layout_toEndOf="@+id/itemname"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp" />
 
 
     <!--<TextView-->

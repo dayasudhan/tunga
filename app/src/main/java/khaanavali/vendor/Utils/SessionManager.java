@@ -8,8 +8,6 @@ import android.content.SharedPreferences.Editor;
 import java.util.HashMap;
 
 import khaanavali.vendor.LoginActivity;
-import khaanavali.vendor.MainActivity;
-import khaanavali.vendor.NotificationListener;
 
 public class SessionManager {
 	// Shared Preferences
@@ -20,7 +18,7 @@ public class SessionManager {
 	
 	// Context
 	Context _context;
-	
+	boolean isfirst=true;
 	// Shared pref mode
 	int PRIVATE_MODE = 0;
 	
@@ -46,6 +44,15 @@ public class SessionManager {
 	//To store the firebase id in shared preferences
 	public static final String UNIQUE_ID = "uniqueid";
 	// Constructor
+
+	public boolean isfirst() {
+		return isfirst;
+	}
+
+	public void setIsfirst(boolean isfirst) {
+		this.isfirst = isfirst;
+	}
+
 	public SessionManager(Context context){
 		this._context = context;
 		pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);

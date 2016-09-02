@@ -1,0 +1,290 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/background_color"
+    android:paddingTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/menu_list_lay"
+        android:paddingBottom="5dp">
+        <ListView
+            android:paddingTop="10dp"
+            android:dividerHeight="5dp"
+            android:id="@+id/listlunch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/menu_row2"
+            android:layout_centerVertical="true"
+            >
+
+        </ListView>
+    </RelativeLayout>
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="Rs.10000"-->
+    <!--android:id="@+id/bill_value_value"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_alignBottom="@+id/bill_value_text"-->
+    <!--android:layout_toRightOf="@+id/bill_value_text"-->
+    <!--android:layout_toEndOf="@+id/bill_value_text" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:text="Items -"-->
+    <!--android:id="@+id/items_text"-->
+    <!--android:layout_below="@+id/order_id_text"-->
+    <!--android:layout_alignLeft="@+id/order_id_text"-->
+    <!--android:layout_alignStart="@+id/order_id_text"-->
+    <!--android:layout_marginTop="10dp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="Product 1 name ,product 2 name,product3 name"-->
+    <!--android:id="@+id/items_value"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_alignTop="@+id/items_text"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_toEndOf="@+id/items_text"-->
+    <!--android:layout_toRightOf="@+id/items_text" />-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:text="Current Status -"-->
+    <!--android:id="@+id/current_status_text"-->
+    <!--android:layout_below="@+id/items_value"-->
+    <!--android:layout_alignLeft="@+id/items_text"-->
+    <!--android:layout_alignStart="@+id/items_text"-->
+    <!--android:layout_marginTop="20dp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:text="10:30"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:id="@+id/current_status_value"-->
+    <!--android:layout_alignTop="@+id/current_status_text"-->
+    <!--android:layout_toRightOf="@+id/current_status_text"-->
+    <!--android:layout_toEndOf="@+id/current_status_text" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/menu_details_lay"-->
+    <!--android:padding="5dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:id="@+id/relativeLayout"-->
+    <!--android:layout_alignRight="@+id/order_details_lay"-->
+    <!--android:layout_alignEnd="@+id/order_details_lay"-->
+    <!--android:layout_alignLeft="@+id/order_details_lay"-->
+    <!--android:layout_alignStart="@+id/order_details_lay">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:text="Name-"-->
+    <!--android:id="@+id/customer_name_text"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="Hotel name comes here"-->
+    <!--android:id="@+id/customer_name_value"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_alignBottom="@+id/customer_name_text"-->
+    <!--android:layout_toRightOf="@+id/customer_name_text"-->
+    <!--android:layout_toEndOf="@+id/customer_name_text" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:text="Phone No -"-->
+    <!--android:id="@+id/customer_contact_text"-->
+    <!--android:layout_below="@+id/customer_name_text"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_marginTop="10dp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="999999999"-->
+    <!--android:id="@+id/customer_contact_value"-->
+
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_alignBottom="@+id/customer_contact_text"-->
+    <!--android:layout_toRightOf="@+id/customer_contact_text"-->
+    <!--android:layout_toEndOf="@+id/customer_contact_text" />-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+
+    <!--android:id="@+id/order_address_lay"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:padding="5dp"-->
+    <!--android:layout_below="@+id/relativeLayout"-->
+    <!--android:layout_alignLeft="@+id/relativeLayout"-->
+    <!--android:layout_alignStart="@+id/relativeLayout"-->
+    <!--android:layout_alignRight="@+id/relativeLayout"-->
+    <!--android:layout_alignEnd="@+id/relativeLayout">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:text="Address -"-->
+    <!--android:id="@+id/address_text"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="Address comes here /n fsdfsd dfgdf dfgdfgd dfgdfg dfgd dfg"-->
+    <!--android:id="@+id/address_value"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_toRightOf="@+id/address_text"-->
+    <!--/>-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+
+    <!--android:id="@+id/order_status_details"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:padding="5dp"-->
+    <!--android:layout_below="@+id/order_address_lay"-->
+    <!--android:layout_alignLeft="@+id/order_address_lay"-->
+    <!--android:layout_alignStart="@+id/order_address_lay"-->
+    <!--android:layout_alignRight="@+id/order_address_lay"-->
+    <!--android:layout_alignEnd="@+id/order_address_lay">-->
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:text="Status tracker -"-->
+    <!--android:id="@+id/status_tracker_text"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/title_text_color"-->
+    <!--android:text="status"-->
+    <!--android:id="@+id/status_tracker_value"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_toRightOf="@+id/status_tracker_text"-->
+    <!--/>-->
+    <!--</RelativeLayout>-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+
+    <!--android:layout_below="@+id/order_status_details"-->
+    <!--android:padding="5dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:id="@+id/rate_lay"-->
+
+
+    <!--android:layout_alignRight="@+id/order_status_details"-->
+    <!--android:layout_alignEnd="@+id/order_status_details"-->
+    <!--android:layout_alignLeft="@+id/order_status_details"-->
+    <!--android:layout_alignStart="@+id/order_status_details">-->
+    <!--android:layout_alignStart="@+id/order_status_details">-->
+    <!--&lt;!&ndash;<RatingBar&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/rate_vendor_ratingBar"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_below="@+id/rate_vendor_text"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="5dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentStart="true" />&ndash;&gt;-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textColor="@color/text_purple"-->
+    <!--android:text="Update Status"-->
+    <!--android:id="@+id/rate_vendor_text"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true" />-->
+    <!--<Spinner-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/spinner"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginLeft="3dp"-->
+    <!--android:layout_toRightOf="@+id/rate_vendor_text"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Done"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/button_order_done"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="#ffffff"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@color/dialy_green"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentRight="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentEnd="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:visibility="gone"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="16sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/colorAccent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Your food will reach you with in time."&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/thanks"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_below="@+id/order_address_lay"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="90dp" />&ndash;&gt;-->
+</RelativeLayout>

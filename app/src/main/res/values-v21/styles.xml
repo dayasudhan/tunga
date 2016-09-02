@@ -8,6 +8,18 @@
             <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
             <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
         </style>
+    <style name="MyApp" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">#ffffff</item>
+    </style>
+
+    <style name="MyApp.About" />
+
+    <!-- ThemeOverlay.AppCompat.Dark.ActionBar" makes the text and the icons in the AppBar white. -->
+    <style name="MyApp.DarkAppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
+    <style name="MyApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

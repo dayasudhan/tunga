@@ -171,10 +171,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (itemId == R.id.navigation_menu) {
                     //isOtherFragmentOpen=false;
+                    ishotelFragmentOpen = false;
                     frag = new MenuFragment();
                 }
                 else if (itemId == R.id.navigation_about_me) {
                     //isOtherFragmentOpen=true;
+                    ishotelFragmentOpen = false;
                     frag = new AboutMeFragment();
                 }
                 else if (itemId == R.id.navigation_about_Khaanavali) {

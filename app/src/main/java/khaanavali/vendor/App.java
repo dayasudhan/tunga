@@ -12,6 +12,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        startService(new Intent(this, MyService.class));
+        startService(new Intent(this, MainActivity.class));
     }
 }
