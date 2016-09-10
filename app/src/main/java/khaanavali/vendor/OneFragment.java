@@ -40,14 +40,6 @@ public class OneFragment extends Fragment {
     SharedPreferences pref;
     String vendor_email;
     View rootview;
-    public OneFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

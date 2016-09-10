@@ -64,12 +64,14 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                String username=un.getText().toString();
+                String pwd=pw.getText().toString();
 
-                if (un.getText().toString().matches("")) {
+                if (username.trim().length()<=0) {
                     Toast.makeText(getApplicationContext(), "You did not enter a username", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (pw.getText().toString().matches("")) {
+                if (pwd.trim().length()<=0) {
                     Toast.makeText(getApplicationContext(), "You did not enter a password", Toast.LENGTH_SHORT).show();
                     return;
                 }

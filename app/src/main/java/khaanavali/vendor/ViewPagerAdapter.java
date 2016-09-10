@@ -2,39 +2,38 @@ package khaanavali.vendor;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by Gagan on 9/2/2016.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    int mNumOfTabs;
 
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
+    public ViewPagerAdapter(FragmentManager fm, int NumOfTabs) {
+        super(fm);
+        this.mNumOfTabs = NumOfTabs;
+    }
 
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
+    @Override
+    public Fragment getItem(int position) {
 
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
+        switch (position) {
+            case 0:
+                OneFragment tab1 = new OneFragment();
+                return tab1;
+            case 1:
+                TwoFragment tab2 = new TwoFragment();
+                return tab2;
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+            default:
+                return null;
         }
+    }
+
+    @Override
+    public int getCount() {
+        return mNumOfTabs;
+    }
 }

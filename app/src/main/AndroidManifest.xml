@@ -38,6 +38,7 @@
             android:name=".NotificationListener"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
+
         <activity
             android:name=".orderDetail"
             android:label="Order Details" >

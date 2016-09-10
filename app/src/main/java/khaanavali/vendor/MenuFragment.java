@@ -1,6 +1,8 @@
 package khaanavali.vendor;
 
-import android.content.SharedPreferences;
+
+import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,65 +13,73 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 /**
  * Created by gagan on 11/6/2015.
  */
 public class MenuFragment extends Fragment {
-
-    ArrayList<HotelMenu> menuList;
-
-    MenuAdapter adapter;
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
+    TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private ViewPagerAdapter mAdapter;
+    private ActionBar actionBar;
+    OneFragment one;
+    TwoFragment two;
+    Toolbar toolbar;
     View rootview;
-    ListView listView;
-    //SessionManager session;
-    SharedPreferences pref;
-    String vendor_email;
+    ProgressDialog dialog;
 
-    //EditText eItemName;
-    //EditText eItemPrice;
-    //CheckBox cBreakfast,cLunch,cDinner;
-    //public   int bBreakfast=0,bLunch=0,bDinner=0,itemTiming=0;
+
+
+        //SessionManager session;
+        //EditText eItemName;
+        //EditText eItemPrice;
+        //CheckBox cBreakfast,cLunch,cDinner;
+        //public   int bBreakfast=0,bLunch=0,bDinner=0,itemTiming=0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
+
         rootview = inflater.inflate(R.layout.activity_menu, container, false);
 
-        toolbar = (Toolbar) rootview.findViewById(R.id.toolbarmenu);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        viewPager = (ViewPager) rootview.findViewById(R.id.viewpager);
+        Toolbar toolbar = (Toolbar) rootview.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar();
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager());
-        // if (adapter.getCount() == 0) {
-            adapter.addFragment(new OneFragment(), "Breakfast");
-            adapter.addFragment(new TwoFragment(), "Lunch");
-            viewPager.setAdapter(adapter);
-      //  }
+        TabLayout tabLayout = (TabLayout) rootview.findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Breakfast"));
+        tabLayout.addTab(tabLayout.newTab().setText("Lunch"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        tabLayout = (TabLayout) rootview.findViewById(R.id.tabs);
+        final ViewPager viewPager = (ViewPager) rootview.findViewById(R.id.pager);
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-        tabLayout.setupWithViewPager(viewPager);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        setHasOptionsMenu(true);
         return rootview;
     }
 
-    @Override
-    public void onDestroyView()
-    {
-        //mSectionAdapter.stopLists();
-        super.onDestroyView();
+    protected void onPostExecute(Boolean result) {
+        dialog.cancel();
+        one.adapter.notifyDataSetChanged();
+        if (result == false)
+            Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
     }
-
-
-    //gagan
+        //gagan
 }

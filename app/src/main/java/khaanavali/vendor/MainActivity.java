@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (itemId == R.id.navigation_menu) {
                     //isOtherFragmentOpen=false;
+                    isTodayMenuselected = false;
                     ishotelFragmentOpen = false;
                     frag = new MenuFragment();
                 }
@@ -226,6 +227,12 @@ public class MainActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
+          if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+                finish();
+            }
+
+
+
         if (dLayout.isDrawerOpen(GravityCompat.START)) {
             dLayout.closeDrawer(GravityCompat.START);
         }
