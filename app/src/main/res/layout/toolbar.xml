@@ -5,6 +5,8 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/primary"
+    android:background="@color/gagancolorprimary"
+    android:titleTextColor="@color/gagantextcolor"
+    android:subtitleTextColor="@color/gagantextcolor"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />

@@ -4,7 +4,8 @@
     android:layout_height="178dp"
     android:background="@drawable/knvl1"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    >
 
 
 
@@ -21,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:textColor="#ffffff"
+            android:textColor="@color/gagantextcolor"
             android:text="Khaanavali"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -32,7 +33,7 @@
             android:id="@+id/header_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="@color/gagantextcolor"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:text="Email"

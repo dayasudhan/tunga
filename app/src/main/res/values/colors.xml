@@ -5,6 +5,11 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
+    <color name="gagancolorprimary">#E5E4D7 </color>
+    <color name="gagantextcolor">#2C6700 </color>
+    <color name="gagantextcolorprim">#80a366</color>
+
+
    <!-- <color name="colorAccent">#c8e8ff</color>-->
 
 <color name="primary">#4CAF50</color>

@@ -111,8 +111,6 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
                 holder.onOff.setChecked(false);
             }
 
-       // Button deleteButton = (Button) v.findViewById(R.id.delete_menu_Item_button);
-             //onOff = (Switch) v.findViewById(R.id.onoff);
             holder.onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -120,12 +118,7 @@ public class MenuAdapter extends ArrayAdapter<HotelMenu> {
                     setAvailability(customerList.get(position).getName(),isChecked);
                 }
             });
-       /* deleteButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                deleteMenuItem(customerList.get(position).getName());
 
-            }
-        });*/
 
 
         v.setTag(holder);

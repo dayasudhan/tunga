@@ -128,12 +128,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public void setActionBarTitle(String title) {
+
         getSupportActionBar().setTitle(title);
+
+
     }
     private void setToolBar() {
         Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-
+        tb.setTitleTextColor(getResources().getColor(R.color.gagantextcolor));
+        tb.setSubtitleTextColor(getResources().getColor(R.color.gagantextcolor));
         ActionBar ab = getSupportActionBar();
         if(ab != null) {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);

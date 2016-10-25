@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,18 +55,17 @@ public class SettingsFragment extends Fragment {
 
 
 
-        switchStatus = (TextView) rootview.findViewById(R.id.switchStatus);
         mySwitch = (Switch) rootview.findViewById(R.id.switch1);
-
+        switchStatus=(TextView) rootview.findViewById(R.id.switchStatus);
         //set the switch to ON
         if(session.getHotelopen().equals("1")) {
             mySwitch.setChecked(true);
-            switchStatus.setText("Open");
+            //switchStatus.setText("Open");
         }
         else
         {
             mySwitch.setChecked(false);
-            switchStatus.setText("Closed");
+            //switchStatus.setText("Closed");
         }
         //attach a listener to check for changes in state
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
