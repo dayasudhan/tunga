@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -33,20 +32,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.splunk.mint.Mint;
 
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.methods.HttpPut;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.util.EntityUtils;
-import khaanavali.vendor.R;
-import khaanavali.vendor.Utils.Constants;
-import khaanavali.vendor.order.HotelMenuItem;
-import khaanavali.vendor.order.Order;
-import khaanavali.vendor.order.Tracker;
-import khaanavali.vendor.Utils.StatusTracker;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +40,21 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpPut;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.util.EntityUtils;
+import khaanavali.vendor.Utils.Constants;
+import khaanavali.vendor.Utils.StatusTracker;
+import khaanavali.vendor.order.HotelMenuItem;
+import khaanavali.vendor.order.Order;
+import khaanavali.vendor.order.Tracker;
 
 
 //import order.orderDetailsAdapter;
@@ -366,6 +362,14 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
         order_url= order_url.concat(order.get_id());
         new AddJSONAsyncTask().execute(order_url,status,reason);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this,MainActivity.class);
+        startActivity(i);
+    }
+
     public  class AddJSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         ProgressDialog dialog;

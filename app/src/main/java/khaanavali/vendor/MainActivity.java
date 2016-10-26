@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean ishotelFragmentOpen;
     private  boolean isOtherFragmentOpen=false;
     private boolean onBack=false;
-
+    private String notification;
     private void finishscreen() {
         this.finish();
     }
@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.cancelAll();
         setContentView(R.layout.activity_main_nav);
         ishotelFragmentOpen = true;
+
+
         layout = (RelativeLayout) findViewById(R.id.layout);
         getVendorinfo();
         setNavigationDrawer();

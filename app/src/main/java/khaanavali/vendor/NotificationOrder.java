@@ -3,17 +3,10 @@ package khaanavali.vendor;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,7 +18,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import cz.msebera.android.httpclient.HttpEntity;
@@ -39,15 +31,12 @@ import khaanavali.vendor.order.Address;
 import khaanavali.vendor.order.Customer;
 import khaanavali.vendor.order.HotelMenuItem;
 import khaanavali.vendor.order.Order;
-import khaanavali.vendor.order.OrderAdapter;
 import khaanavali.vendor.order.Tracker;
 
-/**
- * Created by gagan on 11/6/2015.
- */
-public class OrderListFragment extends Fragment {
+public class NotificationOrder extends AppCompatActivity {
+    Order orderList;
+    Intent intent;
 
-    // JSON Node names
     private static final String TAG_CUSTOMER = "customer";
     private static final String TAG_ID = "id";
     private static final String TAG_ID2 = "_id";
@@ -61,113 +50,48 @@ public class OrderListFragment extends Fragment {
     private static final String TAG_BILL_VALUE = "bill_value";
     private static final String TAG_DELIVERY_CHARGE = "deliveryCharge";
     private static final String TAG_TOTAL_COST = "totalCost";
-
-    SharedPreferences pref;
-    ArrayList<Order> orderList;
-   // ArrayList<Order> totalorderList;
-   // ArrayList<Order> todayorderList;
-    String vendor_email;
-    OrderAdapter adapter;
-    JSONArray orderJarray;
-    View rootview;
-    ListView listView;
-    private  int i=0;
-    private String strtext;
-
-
-
-    @Nullable
+    private String msg;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview=inflater.inflate(R.layout.new_order_list,container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notification_order);
+        intent = new Intent(this , orderDetail.class);
 
-        listView = (ListView) rootview.findViewById(R.id.listView_vendor);
-
-        orderList = new ArrayList<Order>();
-        if(((MainActivity) getActivity()).isTodayMenuselected()) {
-            ((MainActivity) getActivity())
-                    .setActionBarTitle("Today's Order");
-        }
-        else
-        {
-            ((MainActivity) getActivity())
-                    .setActionBarTitle("Order List");
-        }
-        pref = getActivity().getSharedPreferences("Khaanavali", 0);
-        vendor_email = pref.getString("email", "name");
-
+        msg=getIntent().getStringExtra("notificationFragment");
 
         bindView();
-        adapter = new OrderAdapter(getActivity().getApplicationContext(), R.layout.new_order_list_item, orderList);
-        listView.setAdapter(adapter);
-
-
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-                                    long id) {
-                // TODO Auto-generated method stub
-                //          Toast.makeText(getActivity().getApplicationContext(), orderList.get(position).getCustomer().getName(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), orderDetail.class);
-                Gson gson = new Gson();
-                String order = gson.toJson(orderList.get(position));
-                intent.putExtra("order", order);
-
-                startActivity(intent);
-            }
-        });
-
-        setHasOptionsMenu(true);
-        return rootview;
-    }
-    @Override
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
-        int itemId = item.getItemId();
-        String btnName = null;
-
-        switch(itemId) {
-
-            case R.id.menu_refresh:
-                bindView();
-                return true;
-//            case R.id.menu_help:
-//                return true;
-            default:
-                return false;
-            // Android home
+        Gson gson = new Gson();
+        while(orderList==null){
+            ;
         }
+        String order = gson.toJson(orderList);
 
-        //  Snackbar.make(layout, "Button " + btnName, Snackbar.LENGTH_SHORT).show();
+        intent.putExtra("order", order);
+
+        startActivity(intent);
+
+
 
     }
+
     public void bindView() {
-        orderList.clear();
-        String order_url = Constants.ORDER_URL;
-        if(((MainActivity) getActivity()).isTodayMenuselected()) {
-            order_url = order_url.concat("today/");
-        }
-        order_url= order_url.concat(vendor_email);
-        new JSONAsyncTask(getActivity(),listView).execute(order_url);
+        String order_url = "http://oota.herokuapp.com/v1/vendor/order_by_id/"+msg;
+        new JSONAsyncTask(this).execute(order_url);
     }
     public  class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         ProgressDialog dialog;
 
-        ListView mListView;
-        Activity mContex;
-        public  JSONAsyncTask(Activity contex,ListView gview)
+         Activity mContex;
+        public  JSONAsyncTask(Activity contex)
         {
-            this.mListView=gview;
             this.mContex=contex;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(getActivity());
+            dialog = new ProgressDialog(NotificationOrder.this);
             dialog.setMessage("Loading, please wait");
             dialog.setTitle("Connecting server");
             dialog.show();
@@ -194,13 +118,10 @@ public class OrderListFragment extends Fragment {
 
                     String data = EntityUtils.toString(entity);
                     JSONArray jarray = new JSONArray(data);
-                    boolean isTodayOrder = false;
                     for (int i = jarray.length() - 1 ; i >= 0; i--) {
                         JSONObject object = jarray.getJSONObject(i);
-                        isTodayOrder = false;
 
                         Order ordr = new Order();
-
                         if(object.has(TAG_CUSTOMER)) {
                             Customer cus = new Customer();
                             JSONObject custObj = object.getJSONObject(TAG_CUSTOMER);
@@ -291,7 +212,7 @@ public class OrderListFragment extends Fragment {
                                     } catch (java.text.ParseException e) {
                                         e.printStackTrace();
                                     }
-                                 //   isTodayOrder = DateUtils.isToday(getDate.getTime());
+                                    //   isTodayOrder = DateUtils.isToday(getDate.getTime());
                                 }
                                 trackerDetails.add(tracker);
                             }
@@ -321,17 +242,16 @@ public class OrderListFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         }
-                        orderList.add(ordr);
+
+                        orderList=ordr;
 //                        if(isTodayOrder)
 //                        {
 //                            todayorderList.add(ordr);
 //                        }
                     }
-                    Collections.sort(orderList);
-
                     return true;
                 }
-             } catch (ParseException e1) {
+            } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -343,9 +263,9 @@ public class OrderListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
-            adapter.notifyDataSetChanged();
-            if (result == false)
-                Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+
+           if (result == false)
+                Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
         }
 

@@ -27,6 +27,7 @@ import khaanavali.vendor.Utils.SessionManager;
 //Class extending service as it is a service that will run in background
 public class NotificationListener extends Service {
 
+    private String sendingMes;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,7 +59,7 @@ public class NotificationListener extends Service {
                 //We stored none as a initial value
                 if(snapshot.child("msg").exists()) {
                     String msg = snapshot.child("msg").getValue().toString();
-
+                    sendingMes=msg ;
                     //So if the value is none we will not create any notification
                     if (msg.equals("none"))
                         return;
@@ -107,9 +108,10 @@ public class NotificationListener extends Service {
         builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
 
         Intent intent;
-        if(intent_type == 1 || intent_type ==3)
-            intent = new Intent(getApplicationContext(),MainActivity.class);
-        else
+        if(intent_type == 1 || intent_type ==3) {
+            intent = new Intent(getApplicationContext(), NotificationOrder.class);
+            intent.putExtra("notificationFragment", sendingMes);
+        }else
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=khaanavali.vendor"));
        // intent.putExtra("notificationID", notificationId);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
