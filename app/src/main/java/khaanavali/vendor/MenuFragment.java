@@ -83,7 +83,7 @@ public class MenuFragment extends Fragment {
 
         tabLayout.setTabTextColors(getResources().getColor(R.color.gagantextcolorprim),getResources().getColor(R.color.gagantextcolor));
         tabLayout.addTab(tabLayout.newTab().setText("Breakfast"));
-        tabLayout.addTab(tabLayout.newTab().setText("Lunch"));
+        tabLayout.addTab(tabLayout.newTab().setText("Lunch/Dinner"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) rootview.findViewById(R.id.pager);

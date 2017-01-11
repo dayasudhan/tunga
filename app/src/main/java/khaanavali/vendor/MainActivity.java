@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity {
                     ishotelFragmentOpen = false;
                     frag = new AboutKhaanavali();
                 }
-                else if (itemId == R.id.navigation_settings) {
-                    ishotelFragmentOpen = false;
-                    //isOtherFragmentOpen=true;
-                    frag = new SettingsFragment();
-                }
+//                else if (itemId == R.id.navigation_settings) {
+//                    ishotelFragmentOpen = false;
+//                    //isOtherFragmentOpen=true;
+//                    frag = new SettingsFragment();
+//                }
                 else if (itemId == R.id.navigation_logout) {
                     //isOtherFragmentOpen=true;
                     frag = new LogoutFragment();
