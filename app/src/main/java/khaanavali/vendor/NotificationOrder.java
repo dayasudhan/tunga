@@ -60,22 +60,11 @@ public class NotificationOrder extends AppCompatActivity {
         msg=getIntent().getStringExtra("notificationFragment");
 
         bindView();
-        Gson gson = new Gson();
-        while(orderList==null){
-            ;
-        }
-        String order = gson.toJson(orderList);
-
-        intent.putExtra("order", order);
-
-        startActivity(intent);
-
-
 
     }
 
     public void bindView() {
-        String order_url = "http://oota.herokuapp.com/v1/vendor/order_by_id/"+msg;
+        String order_url = Constants.GET_ORDER_BY_ID + msg;
         new JSONAsyncTask(this).execute(order_url);
     }
     public  class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -242,12 +231,7 @@ public class NotificationOrder extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
                         orderList=ordr;
-//                        if(isTodayOrder)
-//                        {
-//                            todayorderList.add(ordr);
-//                        }
                     }
                     return true;
                 }
@@ -263,8 +247,14 @@ public class NotificationOrder extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
-
-           if (result == false)
+            if(result == true && orderList != null)
+            {
+                Gson gson = new Gson();
+                String order = gson.toJson(orderList);
+                intent.putExtra("order", order);
+                startActivity(intent);
+            }
+   else  if (result == false)
                 Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
         }
