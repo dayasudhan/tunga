@@ -28,7 +28,7 @@ import khaanavali.vendor.Utils.SessionManager;
 public class NotificationListener extends Service {
 
     private String sendingMes;
-
+    SessionManager session;
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -57,28 +57,36 @@ public class NotificationListener extends Service {
             public void onDataChange(DataSnapshot snapshot) {
                 //Getting the value from firebase
                 //We stored none as a initial value
+                session = new SessionManager(getApplicationContext());
                 if(snapshot.child("msg").exists()) {
                     String msg = snapshot.child("msg").getValue().toString();
                     sendingMes=msg ;
+
                     //So if the value is none we will not create any notification
                     if (msg.equals("none"))
                         return;
 
-                    //If the value is anything other than none that means a notification has arrived
-                    //calling the method to show notification
-                    //String msg is containing the msg that has to be shown with the notification
-                    String message  = "New Order Received : " + msg;
-                    showNotification(Calendar.getInstance().getTimeInMillis(),message,1);
+                    if(msg.compareTo(session.getlastpn()) != 0) {
+                        session.setlastpn(msg);
+                        String message  = "New Order Received : " + msg;
+                        showNotification(Calendar.getInstance().getTimeInMillis(),message,1);
+                    }
                 }
                 else if(snapshot.child("update").exists())
                 {
                     String msg = snapshot.child("update").getValue().toString();
-                    showNotification(Calendar.getInstance().getTimeInMillis(),msg,2);
+                    if(msg.compareTo(session.getlastpn()) != 0) {
+                        session.setlastpn(msg);
+                        showNotification(Calendar.getInstance().getTimeInMillis(), msg, 2);
+                    }
                 }
                 else if(snapshot.child("info").exists())
                 {
                     String msg = snapshot.child("info").getValue().toString();
-                    showNotification(Calendar.getInstance().getTimeInMillis(),msg,3);
+                    if(msg.compareTo(session.getlastpn()) != 0) {
+                        session.setlastpn(msg);
+                        showNotification(Calendar.getInstance().getTimeInMillis(), msg, 3);
+                    }
                 }
             }
 
@@ -108,12 +116,16 @@ public class NotificationListener extends Service {
         builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
 
         Intent intent;
-        if(intent_type == 1 || intent_type ==3) {
-            intent = new Intent(getApplicationContext(), NotificationOrder.class);
+        if(intent_type == 1 ) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("notificationFragment", sendingMes);
-        }else
+        }else if(intent_type ==3) {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("notificationFragment", msg);
+        }
+        else
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=khaanavali.vendor"));
-       // intent.putExtra("notificationID", notificationId);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));

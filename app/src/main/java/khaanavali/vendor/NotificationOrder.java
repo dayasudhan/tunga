@@ -56,11 +56,8 @@ public class NotificationOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_order);
         intent = new Intent(this , orderDetail.class);
-
         msg=getIntent().getStringExtra("notificationFragment");
-
         bindView();
-
     }
 
     public void bindView() {

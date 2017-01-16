@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/gagancolorprimary"
-    >
+    android:weightSum="1">
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
@@ -54,4 +54,22 @@
         android:textColor="@color/primary_text"
         android:text="   http://www.khaanavali.com"
         android:layout_marginBottom="40dip"/>
+
+    <TextView
+        android:id="@+id/lblknvlcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/primary_text"
+        android:text="   KURUVA TECHNOLOGIES LLP"
+        android:layout_marginBottom="40dip" />
+    <TextView
+        android:id="@+id/lblknvladdress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/primary_text"
+        android:text="   KURUVA TECHNOLOGIES LLP"
+        android:layout_marginBottom="40dip"
+        android:layout_weight="0.16" />
 </LinearLayout>

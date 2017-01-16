@@ -64,45 +64,38 @@ public class OrderListFragment extends Fragment {
 
     SharedPreferences pref;
     ArrayList<Order> orderList;
-   // ArrayList<Order> totalorderList;
-   // ArrayList<Order> todayorderList;
+    // ArrayList<Order> totalorderList;
+    // ArrayList<Order> todayorderList;
     String vendor_email;
     OrderAdapter adapter;
     JSONArray orderJarray;
     View rootview;
     ListView listView;
-    private  int i=0;
+    private int i = 0;
     private String strtext;
-
+    private int notify_order_id = -1;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview=inflater.inflate(R.layout.new_order_list,container,false);
+        rootview = inflater.inflate(R.layout.new_order_list, container, false);
 
         listView = (ListView) rootview.findViewById(R.id.listView_vendor);
 
         orderList = new ArrayList<Order>();
-        if(((MainActivity) getActivity()).isTodayMenuselected()) {
+        if (((MainActivity) getActivity()).isTodayMenuselected()) {
             ((MainActivity) getActivity())
                     .setActionBarTitle("Today's Order");
-        }
-        else
-        {
+        } else {
             ((MainActivity) getActivity())
                     .setActionBarTitle("Order List");
         }
         pref = getActivity().getSharedPreferences("Khaanavali", 0);
         vendor_email = pref.getString("email", "name");
-
-
-        bindView();
         adapter = new OrderAdapter(getActivity().getApplicationContext(), R.layout.new_order_list_item, orderList);
         listView.setAdapter(adapter);
-
-
-
+        getOrders();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -115,7 +108,6 @@ public class OrderListFragment extends Fragment {
                 Gson gson = new Gson();
                 String order = gson.toJson(orderList.get(position));
                 intent.putExtra("order", order);
-
                 startActivity(intent);
             }
         });
@@ -123,15 +115,16 @@ public class OrderListFragment extends Fragment {
         setHasOptionsMenu(true);
         return rootview;
     }
+
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         int itemId = item.getItemId();
         String btnName = null;
 
-        switch(itemId) {
+        switch (itemId) {
 
             case R.id.menu_refresh:
-                bindView();
+                getOrders();
                 return true;
 //            case R.id.menu_help:
 //                return true;
@@ -143,25 +136,36 @@ public class OrderListFragment extends Fragment {
         //  Snackbar.make(layout, "Button " + btnName, Snackbar.LENGTH_SHORT).show();
 
     }
-    public void bindView() {
+
+    public void getOrders() {
         orderList.clear();
         String order_url = Constants.ORDER_URL;
-        if(((MainActivity) getActivity()).isTodayMenuselected()) {
+        if (((MainActivity) getActivity()).isTodayMenuselected()) {
             order_url = order_url.concat("today/");
         }
-        order_url= order_url.concat(vendor_email);
-        new JSONAsyncTask(getActivity(),listView).execute(order_url);
+        order_url = order_url.concat(vendor_email);
+        new JSONAsyncTask(getActivity(), listView).execute(order_url);
     }
-    public  class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+    //    public void getOrderById(String msg) {
+//        orderList.clear();
+//        String order_url =  Constants.GET_ORDER_BY_ID + msg;
+////        if(((MainActivity) getActivity()).isTodayMenuselected()) {
+////            order_url = order_url.concat("today/");
+////        }
+//        order_url= order_url.concat(vendor_email);
+//        new JSONAsyncTask(getActivity(),listView).execute(order_url);
+//    }
+    public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         ProgressDialog dialog;
 
         ListView mListView;
         Activity mContex;
-        public  JSONAsyncTask(Activity contex,ListView gview)
-        {
-            this.mListView=gview;
-            this.mContex=contex;
+
+        public JSONAsyncTask(Activity contex, ListView gview) {
+            this.mListView = gview;
+            this.mContex = contex;
         }
 
         @Override
@@ -195,13 +199,13 @@ public class OrderListFragment extends Fragment {
                     String data = EntityUtils.toString(entity);
                     JSONArray jarray = new JSONArray(data);
                     boolean isTodayOrder = false;
-                    for (int i = jarray.length() - 1 ; i >= 0; i--) {
+                    for (int i = jarray.length() - 1; i >= 0; i--) {
                         JSONObject object = jarray.getJSONObject(i);
                         isTodayOrder = false;
 
                         Order ordr = new Order();
 
-                        if(object.has(TAG_CUSTOMER)) {
+                        if (object.has(TAG_CUSTOMER)) {
                             Customer cus = new Customer();
                             JSONObject custObj = object.getJSONObject(TAG_CUSTOMER);
                             if (custObj.has(TAG_NAME)) {
@@ -220,19 +224,19 @@ public class OrderListFragment extends Fragment {
                             if (custObj.has(TAG_ADDRESS)) {
                                 JSONObject addrObj = custObj.getJSONObject(TAG_ADDRESS);
                                 Address address = new Address();
-                                if(addrObj.has("addressLine1"))
+                                if (addrObj.has("addressLine1"))
                                     address.setAddressLine1(addrObj.getString("addressLine1"));
-                                if(addrObj.has("addressLine2"))
+                                if (addrObj.has("addressLine2"))
                                     address.setAddressLine2(addrObj.getString("addressLine2"));
-                                if(addrObj.has("areaName"))
+                                if (addrObj.has("areaName"))
                                     address.setAreaName(addrObj.getString("areaName"));
-                                if(addrObj.has("city"))
+                                if (addrObj.has("city"))
                                     address.setCity(addrObj.getString("city"));
-                                if(addrObj.has("LandMark"))
+                                if (addrObj.has("LandMark"))
                                     address.setLandMark(addrObj.getString("LandMark"));
-                                if(addrObj.has("street"))
+                                if (addrObj.has("street"))
                                     address.setStreet(addrObj.getString("street"));
-                                if(addrObj.has("zip"))
+                                if (addrObj.has("zip"))
                                     address.setZip(addrObj.getString("zip"));
                                 cus.setAddress(address);
                             }
@@ -240,23 +244,19 @@ public class OrderListFragment extends Fragment {
                         }
 
 
-                        if(object.has(TAG_ID))
-                        {
+                        if (object.has(TAG_ID)) {
                             ordr.setId(object.getString(TAG_ID));
                         }
-                        if(object.has(TAG_ID2))
-                        {
+                        if (object.has(TAG_ID2)) {
                             ordr.set_id(object.getString(TAG_ID2));
                         }
-                        if(object.has(TAG_CURRENT_STATUS))
-                        {
+                        if (object.has(TAG_CURRENT_STATUS)) {
                             ordr.setCurrent_status(object.getString(TAG_CURRENT_STATUS));
                         }
 
-                        if(object.has(TAG_MENU))
-                        {
+                        if (object.has(TAG_MENU)) {
                             ArrayList<HotelMenuItem> hotelMenuItemList = new ArrayList<HotelMenuItem>();
-                            JSONArray menuarr =  object.getJSONArray(TAG_MENU);
+                            JSONArray menuarr = object.getJSONArray(TAG_MENU);
                             for (int j = 0; j < menuarr.length(); j++) {
                                 JSONObject menuobject = menuarr.getJSONObject(j);
                                 HotelMenuItem menu = new HotelMenuItem();
@@ -268,22 +268,18 @@ public class OrderListFragment extends Fragment {
                         }
 
 
-
-                        if(object.has(TAG_TRACKER))
-                        {
+                        if (object.has(TAG_TRACKER)) {
                             ArrayList<Tracker> trackerDetails = new ArrayList<Tracker>();
-                            JSONArray trackerarr =  object.getJSONArray(TAG_TRACKER);
+                            JSONArray trackerarr = object.getJSONArray(TAG_TRACKER);
                             for (int j = 0; j < trackerarr.length(); j++) {
                                 JSONObject trackerobject = trackerarr.getJSONObject(j);
                                 Tracker tracker = new Tracker();
                                 tracker.setStatus(trackerobject.getString("status"));
                                 tracker.setTime(trackerobject.getString("time"));
-                                if(trackerobject.has("reason"))
-                                {
+                                if (trackerobject.has("reason")) {
                                     tracker.setReason(trackerobject.getString("reason"));
                                 }
-                                if(j ==0)
-                                {
+                                if (j == 0) {
                                     Date getDate = null;
                                     SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                                     try {
@@ -291,7 +287,7 @@ public class OrderListFragment extends Fragment {
                                     } catch (java.text.ParseException e) {
                                         e.printStackTrace();
                                     }
-                                 //   isTodayOrder = DateUtils.isToday(getDate.getTime());
+                                    //   isTodayOrder = DateUtils.isToday(getDate.getTime());
                                 }
                                 trackerDetails.add(tracker);
                             }
@@ -301,7 +297,7 @@ public class OrderListFragment extends Fragment {
                             try {
                                 int intValue = object.getInt(TAG_BILL_VALUE);
                                 ordr.setBill_value(intValue);
-                            }catch (JSONException e) {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -309,7 +305,7 @@ public class OrderListFragment extends Fragment {
                             try {
                                 int intValue = object.getInt(TAG_DELIVERY_CHARGE);
                                 ordr.setDeliveryCharge(intValue);
-                            }catch (JSONException e) {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -317,7 +313,7 @@ public class OrderListFragment extends Fragment {
                             try {
                                 int intValue = object.getInt(TAG_TOTAL_COST);
                                 ordr.setTotalCost(intValue);
-                            }catch (JSONException e) {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -331,7 +327,7 @@ public class OrderListFragment extends Fragment {
 
                     return true;
                 }
-             } catch (ParseException e1) {
+            } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -344,6 +340,13 @@ public class OrderListFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
             adapter.notifyDataSetChanged();
+            if (getNotificationOrderID() != null && result == true && orderList.size() > 0) {
+                Intent intent = new Intent(getActivity(), orderDetail.class);
+                Gson gson = new Gson();
+                String order = gson.toJson(orderList.get(0));
+                intent.putExtra("order", order);
+                startActivity(intent);
+            }
             if (result == false)
                 Toast.makeText(getActivity().getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
@@ -352,4 +355,11 @@ public class OrderListFragment extends Fragment {
 
     }
 
+    private String getNotificationOrderID() {
+
+        if (((MainActivity) getActivity()).getNotification() != null && (((MainActivity) getActivity()).getNotification() != "")){
+            return  ((MainActivity) getActivity()).getNotification();
+        }
+        return null;
+    }
 }

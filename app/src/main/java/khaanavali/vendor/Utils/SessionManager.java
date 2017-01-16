@@ -52,7 +52,7 @@ public class SessionManager {
 	public void setIsfirst(boolean isfirst) {
 		this.isfirst = isfirst;
 	}
-
+	public static final String KEY_LAST_PN = "last_pn";
 	public SessionManager(Context context){
 		this._context = context;
 		pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -77,6 +77,16 @@ public class SessionManager {
 		// commit changes
 		editor.commit();
 
+	}
+	public void setlastpn(String msg)
+	{
+		editor.putString(KEY_LAST_PN,msg);
+		editor.commit();
+	}
+	public String getlastpn()
+	{
+		String id = pref.getString(KEY_LAST_PN, "");
+		return id;
 	}
 	public String getEmail()
 	{

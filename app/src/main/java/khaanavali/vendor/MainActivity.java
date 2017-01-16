@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean isTodayMenuselected() {
         return isTodayMenuselected;
     }
-
+    public String getNotification() {
+        return notification;
+    }
     private boolean isTodayMenuselected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Mint.initAndStartSession(this, "49d903c2");
         session = new SessionManager(getApplicationContext());
+        notification=getIntent().getStringExtra("notificationFragment");
         if(session.checkLogin() && !checkNotificationListenerServiceRunning())
         {
             startService(new Intent(this, NotificationListener.class));
@@ -78,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         layout = (RelativeLayout) findViewById(R.id.layout);
-        getVendorinfo();
         setNavigationDrawer();
         setToolBar();
       /*  if(onBack==false && isOtherFragmentOpen==false) {

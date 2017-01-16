@@ -40,6 +40,8 @@ public class AboutKhaanavali extends Fragment {
         TextView lblEmail = (TextView) rootview.findViewById(R.id.lblknvlEmail);
         TextView lblphone = (TextView) rootview.findViewById(R.id.lblknvlPhone);
         TextView lblwebsite = (TextView) rootview.findViewById(R.id.lblknvlwebsite);
+        TextView lblAddress = (TextView) rootview.findViewById(R.id.lblknvladdress);
+        TextView lblcompany = (TextView) rootview.findViewById(R.id.lblknvlcompany);
         ((MainActivity) getActivity())
                 .setActionBarTitle("About Khaanavali");
 
@@ -56,7 +58,9 @@ public class AboutKhaanavali extends Fragment {
 
         lblEmail.setText(Html.fromHtml("Email: <b>" + "khaanavali@gmail.com" + "</b>"));
         lblphone.setText(Html.fromHtml("Phone: <b>" + "9566229075" + "</b>"));
-        lblwebsite.setText(Html.fromHtml("Website: <b>" + "http://khaanavali.com" + "</b>"));
+        lblwebsite.setText(Html.fromHtml("Website: <b>" + "http://www.khaanavali.com" + "</b>"));
+        lblcompany.setText(Html.fromHtml("Company : <b>" + "KURUVA TECHNOLOGIES LLP" + "</b>"));
+        lblAddress.setText(Html.fromHtml("Address : <b>" + "#519, 24th Main, Nandini Layout, Bangalore-96" + "</b>"));
 
 
         return rootview;
