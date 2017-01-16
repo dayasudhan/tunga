@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         // Session Manager
         session = new SessionManager(getApplicationContext());
         session.isKill = false;
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         un=(EditText)findViewById(R.id.et_un);
         pw=(EditText)findViewById(R.id.et_pw);
